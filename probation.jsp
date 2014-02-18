@@ -92,7 +92,7 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>ID</th>
+            <th>STUDENT ID</th>
             <th>PERIOD</th>
             <th>REASON</th>
             <th>ACTION</th>

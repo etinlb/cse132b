@@ -107,7 +107,7 @@
                   name="c_title" size="15">
               </td>
               <td>
-                <input value="<%= rs.getInt("qtr") %>" 
+                <input value="<%= rs.getString("qtr") %>" 
                   name="qtr" size="15">
               </td>
               <td>

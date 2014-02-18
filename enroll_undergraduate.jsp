@@ -37,7 +37,7 @@
             conn.setAutoCommit(false);
             
             PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO UGSTUDENTDEGREE VALUES (?, ?, ?, ?)");
+              "INSERT INTO UGSTUDENTDEGREE VALUES (?, ?, ?, ?, ?)");
 
             pstmt.setInt(1, Integer.parseInt(request.getParameter("STUDENT_ID")));
             if(request.getParameter("MINOR") != ""){
@@ -49,6 +49,7 @@
             }
             pstmt.setString(3, request.getParameter("MAJOR"));
             pstmt.setString(4, request.getParameter("MS5YR"));
+            pstmt.setString(5, request.getParameter("COLLEGE"));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -75,6 +76,7 @@
             <th>MINOR</th>
             <th>MAJOR</th>
             <th>MS5YR</th>
+            <th>COLLEGE</th>
           </tr>
           <tr>
             <form action="enroll_undergraduate.jsp" method="get">
@@ -83,6 +85,7 @@
               <th><input value="" name="MINOR" size="10"></th>
               <th><input value="" name="MAJOR" size="15"></th>
               <th><input value="" name="MS5YR" size="15"></th>
+              <th><input value="" name="COLLEGE" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -128,6 +131,10 @@
               <td>
                 <input value="<%= rs.getString("MS5yr") %>" 
                   name="MS5YR" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("college") %>"
+                  name="COLLEGE" size="15">
               </td>
           </tr>
       <%

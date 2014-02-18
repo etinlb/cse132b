@@ -81,7 +81,52 @@
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
+      <%-- -------- UPDATE Code -------- --%>
+      <%
+          // Check if an update is requested
+          if (action != null && action.equals("update")) {
 
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // UPDATE the student attributes in the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "UPDATE Degreereq SET units_req = ?, WHERE name_of_degree = ? and category = ?");
+
+            pstmt.setString(1, Integer.parseString(request.getParameter("TYPE")));
+            pstmt.setString(2, request.getParameter("NAME"));
+            pstmt.setString(3, request.getParameter("UREQ"));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+            conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
+
+      <%-- -------- DELETE Code -------- --%>
+      <%
+          // Check if a delete is requested
+          if (action != null && action.equals("delete")) {
+
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // DELETE the student FROM the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "DELETE FROM Degreereq WHERE name_of_degree = ? and category = ?");
+
+            pstmt.setString(1, request.getParameter("NAME"));
+            pstmt.setString(2, request.getParameter("TYPE"));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+             conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
       <%-- -------- Iteration Code -------- --%>
       <%
           // Iterate over the ResultSet
@@ -109,13 +154,25 @@
               <%-- Get the UNITS REQ --%>
               <td>
                 <input value="<%= rs.getInt("units_req") %>" 
-                  name="UPPER" size="10">
+                  name="UREQ" size="10">
               </td>
   
               <%-- Button --%>
               <td>
                 <input type="submit" value="Update">
               </td>
+            </form>
+            <form action="adddegreereq.jsp" method="get">
+              <input type="hidden" value="delete" name="action">
+              <input type="hidden" 
+                value="<%= rs.getString("name_of_degree") %>" name="NAME">
+              <input type="hidden" 
+                value="<%= rs.getString("category") %>" name="TYPE">
+              <%-- Button --%>
+              <td>
+                <input type="submit" value="Delete">
+              </td>
+            </form>
           </tr>
       <%
           }

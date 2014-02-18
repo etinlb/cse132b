@@ -70,12 +70,13 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>SECTION_ID</th>
-            <th>STUDENT_ID</th>
-            <th>GRADE_TYPE</th>
+            <th>SECTION ID</th>
+            <th>STUDENT ID</th>
+            <th>GRADE TYPE</th>
             <th>GRADE</th>
             <th>QUARTERTAKEN</th>
             <th>UNITS</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="past_classes.jsp" method="get">

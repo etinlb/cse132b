@@ -94,7 +94,7 @@
             <th>STUDENT ID</th>
             <th>FIRSTNAME</th>
             <th>LASTNAME</th>
-            <th>action</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="thesis.jsp" method="get">

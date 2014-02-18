@@ -68,7 +68,7 @@
           <tr>
             <th>NAME OF DEGREE</th>
             <th>AVERAGE GPA</th>
-            <th>Action</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="adddegree.jsp" method="get">

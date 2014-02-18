@@ -99,6 +99,7 @@
             <th>LAST</th>
             <th>TITLE</th>
             <th>DEPARTMENT</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="faculty.jsp" method="get">

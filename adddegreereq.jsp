@@ -70,7 +70,7 @@
             <th>NAME OF DEGREE</th>
             <th>CATEGORY</th>
             <th>UNITS REQUIRED</th>
-            <th>Action</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="adddegreereq.jsp" method="get">

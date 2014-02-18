@@ -65,11 +65,12 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>Section_id</th>
-            <th>Course_id</th>
-            <th>Course_title</th>
-            <th>Qtr</th>
-            <th>Year</th>
+            <th>SECTION ID</th>
+            <th>COURSE ID</th>
+            <th>COURSE TITLE</th>
+            <th>QTR</th>
+            <th>YEAR</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="class.jsp" method="get">

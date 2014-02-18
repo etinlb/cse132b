@@ -79,6 +79,57 @@
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
+            <%-- -------- UPDATE Code -------- --%>
+      <%
+          // Check if an update is requested
+          if (action != null && action.equals("update")) {
+
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // UPDATE the student attributes in the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "UPDATE Student SET student_id = ?, FIRSTNAME = ?, " +
+              "MIDDLENAME = ?, LASTNAME = ?, RESIDENCY = ? WHERE SSN = ?");
+
+            pstmt.setString(1, request.getParameter("student_id"));
+            pstmt.setString(2, request.getParameter("FIRSTNAME"));
+            pstmt.setString(3, request.getParameter("MIDDLENAME"));
+            pstmt.setString(4, request.getParameter("LASTNAME"));
+            pstmt.setString(5, request.getParameter("RESIDENCY"));
+            pstmt.setInt(
+              6, Integer.parseInt(request.getParameter("SSN")));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+            conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
+
+      <%-- -------- DELETE Code -------- --%>
+      <%
+          // Check if a delete is requested
+          if (action != null && action.equals("delete")) {
+
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // DELETE the student FROM the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "DELETE FROM Student WHERE SSN = ?");
+
+            pstmt.setInt(
+              1, Integer.parseInt(request.getParameter("SSN")));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+             conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
 
       <%-- -------- Iteration Code -------- --%>
       <%
@@ -108,6 +159,18 @@
               <td>
                 <input type="submit" value="Update">
               </td>
+            </form>
+            <form action="add_prereq.jsp" method="get">
+              <input type="hidden" value="delete" name="action">
+              <input type="hidden" 
+                value="<%= rs.getString("PRE") %>" name="PRE">
+                <input type="hidden" value="<%= rs.getString("ID") %>" name="ID">
+              <%-- Button --%>
+              <td>
+                <input type="submit" value="Delete">
+              </td>
+            </form>
+
           </tr>
       <%
           }

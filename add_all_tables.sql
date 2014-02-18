@@ -33,7 +33,7 @@ CREATE TABLE MEETING (
   section_id  INT NOT NULL,
   days_of_week  VARCHAR(10) NOT NULL,
   time_range  VARCHAR(10) NOT NULL,
-  date_range  VARCHAR(10) NOT NULL,
+  date_range  VARCHAR(30) NOT NULL,
   mandatory   VARCHAR(10) NOT NULL,
   type    CHAR(2) NOT NULL,
   location   VARCHAR(10) NOT NULL,
@@ -100,6 +100,7 @@ CREATE TABLE UGSTUDENTDEGREE (
   minor      VARCHAR(20),
   major      VARCHAR(20) NOT NULL,
   MS5yr      CHAR(1) NOT NULL,
+  college    VARCHAR(20) NOT NULL,
   PRIMARY KEY (student_id),
   FOREIGN KEY (student_id) REFERENCES STUDENT,
   FOREIGN KEY (major) REFERENCES DEGREE(name_of_degree)

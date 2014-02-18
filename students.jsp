@@ -1,3 +1,4 @@
+
 <html>
 
 <body>
@@ -194,7 +195,7 @@
                   name="RESIDENCY" size="15">
               </td>              
               <td>
-                <input value="<%= rs.getString("RESIDENCY") %>" 
+                <input value="<%= rs.getString("TYPE") %>" 
                   name="TYPE" size="15">
               </td>
   

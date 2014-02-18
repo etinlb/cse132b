@@ -99,11 +99,11 @@
   
               <%-- Get the student_id --%>
               <td>
-                <input value="<%= rs.getString("minor") %>" 
+                <input value="<%= rs.getString("name_of_degree") %>" 
                   name="NAME_OF_DEGREE" size="10">
               </td>
               <td>
-                <input value="<%= rs.getString("major") %>"
+                <input value="<%= rs.getString("concentration") %>"
                   name="CONCENTRATION" size="15">
               </td>
           </tr>

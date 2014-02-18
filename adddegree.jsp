@@ -92,7 +92,7 @@
             PreparedStatement pstmt = conn.prepareStatement(
               "UPDATE Degree SET avg_gpa = ?, WHERE name_of_degree = ?");
 
-            pstmt.setString(1, request.getParameter("GPA"));
+            pstmt.setDouble(1, request.getParameter("GPA"));
             pstmt.setString(2, request.getParameter("NAME"));
             int rowCount = pstmt.executeUpdate();
 
@@ -116,7 +116,7 @@
               "DELETE FROM Degree WHERE name_of_degree = ?");
 
             pstmt.setString(
-              1, Integer.parseInt(request.getParameter("NAME")));
+              1, Integer.parseString(request.getParameter("NAME")));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction

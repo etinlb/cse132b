@@ -90,7 +90,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM faculty");
       %>
-        <h1>Add a Falculty</h1>
+        <h1>Add a Faculty</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
@@ -99,6 +99,7 @@
             <th>LAST</th>
             <th>TITLE</th>
             <th>DEPARTMENT</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="faculty.jsp" method="get">

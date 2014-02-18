@@ -74,6 +74,7 @@
             <th>STUDENT_ID</th>
             <th>GRADE_TYPE</th>
             <th>UNITS</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="course_enrollment.jsp" method="get">

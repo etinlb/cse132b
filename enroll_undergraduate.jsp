@@ -72,11 +72,12 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>STUDENT_ID</th>
+            <th>STUDENT ID</th>
             <th>MINOR</th>
             <th>MAJOR</th>
-            <th>MS5YR</th>
+            <th>MS5YR (Y/N)</th>
             <th>COLLEGE</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="enroll_undergraduate.jsp" method="get">

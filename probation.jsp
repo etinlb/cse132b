@@ -95,6 +95,7 @@
             <th>ID</th>
             <th>PERIOD</th>
             <th>REASON</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="probation.jsp" method="get">

@@ -67,12 +67,13 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>SECTION_ID</th>
-            <th>DAYS_OF_WEEK</th>
-            <th>TIME_RANGE</th>
-            <th>DATE_RANGE</th>
+            <th>SECTION ID</th>
+            <th>DAYS OF WEEK</th>
+            <th>TIME RANGE</th>
+            <th>DATE RANGE</th>
             <th>MANDATORY</th>
             <th>LOCATION</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="review_session.jsp" method="get">

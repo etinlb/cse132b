@@ -125,13 +125,13 @@
         <table border="1">
           <tr>
             <th>SSN</th>
-            <th>student_id</th>
-            <th>First</th>
-            <th>Middle</th>
-            <th>Last</th>
-            <th>Residency</th>
-            <th>Type Of Student</th>
-            <th>Action</th>
+            <th>STUDENT ID</th>
+            <th>FIRST</th>
+            <th>MIDDLE</th>
+            <th>LAST</th>
+            <th>RESIDENCY</th>
+            <th>TYPE OF STUDENT</th>
+            <th>ACTION</th>
           </tr>
           <tr>
             <form action="students.jsp" method="get">

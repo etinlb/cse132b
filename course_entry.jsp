@@ -72,7 +72,7 @@
             <th>COURSE ID</th>
             <th>GRADEOPT</th>
             <th>LABWORK</th>
-            <th>UNITS</th>
+            <th>UNIT RANGE</th>
             <th>DEPARTMENT</th>
             <th>ACTION</th>
           </tr>

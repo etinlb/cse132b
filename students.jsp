@@ -40,7 +40,7 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO Student VALUES (?, ?, ?, ?, ?, ?, ?)");
+              "INSERT INTO Student VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
             pstmt.setInt(
               1, Integer.parseInt(request.getParameter("SSN")));
@@ -50,6 +50,7 @@
             pstmt.setString(5, request.getParameter("LASTNAME"));
             pstmt.setString(6, request.getParameter("RESIDENCY"));
             pstmt.setString(7, request.getParameter("TYPE"));
+            pstmt.setString(8, request.getParameter("E_PER"));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -98,10 +99,10 @@
             // Create the prepared statement and use it to
             // DELETE the student FROM the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM Student WHERE SSN = ?");
+              "DELETE CASCADE FROM Student WHERE student_id = ?");
 
             pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("SSN")));
+              1, Integer.parseInt(request.getParameter("student_id")));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -131,6 +132,7 @@
             <th>LAST</th>
             <th>RESIDENCY</th>
             <th>TYPE OF STUDENT</th>
+            <th>ENROLLMENT PERIODS</th>
             <th>ACTION</th>
           </tr>
           <tr>
@@ -143,6 +145,7 @@
               <th><input value="" name="LASTNAME" size="15"></th>
               <th><input value="" name="RESIDENCY" size="15"></th>
               <th><input value="" name="TYPE" size="15"></th>
+              <th><input value="" name="E_PER" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -198,6 +201,10 @@
                 <input value="<%= rs.getString("TYPE") %>" 
                   name="TYPE" size="15">
               </td>
+              <td>
+                <input value="<%= rs.getString("E_PERIOD") %>" 
+                  name="TYPE" size="15">
+              </td>
   
               <%-- Button --%>
               <td>
@@ -207,7 +214,7 @@
             <form action="students.jsp" method="get">
               <input type="hidden" value="delete" name="action">
               <input type="hidden" 
-                value="<%= rs.getInt("SSN") %>" name="SSN">
+                value="<%= rs.getInt("student_id") %>" name="student_id">
               <%-- Button --%>
               <td>
                 <input type="submit" value="Delete">

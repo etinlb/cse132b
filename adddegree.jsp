@@ -90,16 +90,10 @@
             // Create the prepared statement and use it to
             // UPDATE the student attributes in the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "UPDATE Student SET student_id = ?, FIRSTNAME = ?, " +
-              "MIDDLENAME = ?, LASTNAME = ?, RESIDENCY = ? WHERE SSN = ?");
+              "UPDATE Degree SET avg_gpa = ?, WHERE name_of_degree = ?");
 
-            pstmt.setString(1, request.getParameter("student_id"));
-            pstmt.setString(2, request.getParameter("FIRSTNAME"));
-            pstmt.setString(3, request.getParameter("MIDDLENAME"));
-            pstmt.setString(4, request.getParameter("LASTNAME"));
-            pstmt.setString(5, request.getParameter("RESIDENCY"));
-            pstmt.setInt(
-              6, Integer.parseInt(request.getParameter("SSN")));
+            pstmt.setString(1, request.getParameter("GPA"));
+            pstmt.setString(2, request.getParameter("NAME"));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -119,10 +113,10 @@
             // Create the prepared statement and use it to
             // DELETE the student FROM the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM Student WHERE SSN = ?");
+              "DELETE FROM Degree WHERE name_of_degree = ?");
 
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("SSN")));
+            pstmt.setString(
+              1, Integer.parseInt(request.getParameter("NAME")));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -163,7 +157,7 @@
             <form action="adddegree.jsp" method="get">
               <input type="hidden" value="delete" name="action">
               <input type="hidden" 
-                value="<%= rs.getString("name_of_degree") %>" name="SSN">
+                value="<%= rs.getString("name_of_degree") %>" name="NAME">
               <%-- Button --%>
               <td>
                 <input type="submit" value="Delete">

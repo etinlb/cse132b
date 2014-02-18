@@ -163,8 +163,8 @@
             <form action="add_prereq.jsp" method="get">
               <input type="hidden" value="delete" name="action">
               <input type="hidden" 
-                value="<%= rs.getString("PRE") %>" name="PRE">
-                <input type="hidden" value="<%= rs.getString("ID") %>" name="ID">
+                value="<%= rs.getString("pre_course_id") %>" name="PRE">
+                <input type="hidden" value="<%= rs.getString("course_id") %>" name="ID">
               <%-- Button --%>
               <td>
                 <input type="submit" value="Delete">

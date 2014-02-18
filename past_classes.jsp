@@ -66,7 +66,7 @@
           ResultSet enrollment_set = statement.executeQuery
             ("SELECT * from StudentCourseData WHERE grade<>'WIP'");
       %>
-
+        <h1>Add Class to Student History</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

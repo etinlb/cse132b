@@ -63,7 +63,7 @@
           //get the classes
           ResultSet rs =  statement.executeQuery("SELECT * from MEETING WHERE type='rv'");
       %>
-
+      <h1>Add a Review</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

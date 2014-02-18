@@ -90,7 +90,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM faculty");
       %>
-
+        <h1>Add a Falculty</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

@@ -87,7 +87,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM THESISCOM");
       %>
-
+        <h1>Add a Falcuty to a Students ThesisCom</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

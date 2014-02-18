@@ -62,7 +62,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM DEGREE");
       %>
-
+        <h1>Add Degree</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

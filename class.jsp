@@ -61,7 +61,7 @@
           //get the classes
           ResultSet rs =  statement.executeQuery("SELECT * from Class");
       %>
-
+        <h1>Add a Class</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

@@ -67,7 +67,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM UGSTUDENTDEGREE");
       %>
-
+        <h1>Enroll Student in Undergraduate</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

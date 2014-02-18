@@ -88,7 +88,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM PROBATIONPERIODS");
       %>
-
+        <h1>Add Probation</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

@@ -65,7 +65,7 @@
           ResultSet course = statement.executeQuery
             ("SELECT * from Course");
       %>
-
+        <h1>Enter a Course</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

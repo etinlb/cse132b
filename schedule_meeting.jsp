@@ -38,17 +38,17 @@
             
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
-            PreparedStatement enroll_entry_state = conn.prepareStatement(
-              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement class_entry_state = conn.prepareStatement(
+              "INSERT INTO MEETING VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-            enroll_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
-            enroll_entry_state.setInt(2, Integer.parseInt(request.getParameter("STUDENT_ID")));
-            enroll_entry_state.setString(3, request.getParameter("GRADE_TYPE"));
-            enroll_entry_state.setString(4, "WIP");
-            enroll_entry_state.setString(5, "enrolled");
-            enroll_entry_state.setString(6, "WI14");
-            enroll_entry_state.setInt(7, Integer.parseInt(request.getParameter("UNITS")));
-            int rowCount = enroll_entry_state.executeUpdate();
+            class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
+            class_entry_state.setString(2, request.getParameter("DAYS_OF_WEEK"));
+            class_entry_state.setString(3, request.getParameter("TIME_RANGE"));
+            class_entry_state.setString(4, request.getParameter("DATE_RANGE"));
+            class_entry_state.setString(5, request.getParameter("MANDATORY"));
+            class_entry_state.setString(6, request.getParameter("TYPE"));
+            class_entry_state.setString(7, request.getParameter("LOCATION"));
+            int rowCount = class_entry_state.executeUpdate();
 
             // Commit transaction
             conn.commit();
@@ -60,28 +60,31 @@
       <%
           // Create the statement
           Statement statement = conn.createStatement();
-
-          // Use the created statement to SELECT
-          // the student attributes FROM the Student table.
-          ResultSet enrollment_set = statement.executeQuery
-            ("SELECT * from StudentCourseData WHERE grade = 'WIP'");
+          //get the classes
+          ResultSet rs =  statement.executeQuery("SELECT * from MEETING");
       %>
-
+      <h1>Schedule Meeting</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
             <th>SECTION_ID</th>
-            <th>STUDENT_ID</th>
-            <th>GRADE_TYPE</th>
-            <th>UNITS</th>
+            <th>DAYS_OF_WEEK</th>
+            <th>TIME_RANGE</th>
+            <th>DATE_RANGE</th>
+            <th>MANDATORY</th>
+            <th>TYPE</th>
+            <th>LOCATION</th>
           </tr>
           <tr>
-            <form action="course_enrollment.jsp" method="get">
+            <form action="schedule_meeting.jsp" method="get">
               <input type="hidden" value="insert" name="action">
               <th><input value="" name="SECTION_ID" size="10"></th>
-              <th><input value="" name="STUDENT_ID" size="10"></th>
-              <th><input value="" name="GRADE_TYPE" size="15"></th>
-              <th><input value="" name="UNITS" size="15"></th>
+              <th><input value="" name="DAYS_OF_WEEK" size="10"></th>
+              <th><input value="" name="TIME_RANGE" size="15"></th>
+              <th><input value="" name="DATE_RANGE" size="15"></th>
+              <th><input value="" name="MANDATORY" size="15"></th>
+              <th><input value="" name="TYPE" size="15"></th>
+              <th><input value="" name="LOCATION" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -90,28 +93,40 @@
       <%
           // Iterate over the ResultSet
     
-          while ( enrollment_set.next() ) {
+          while ( rs.next() ) {
     
       %>
 
           <tr>
-            <form action="course_enrollment.jsp" method="get">
+            <form action="schedule_meeting.jsp" method="get">
               <input type="hidden" value="update" name="action">
               <td>
-                <input value="<%= enrollment_set.getInt("section_id") %>" 
+                <input value="<%= rs.getInt("section_id") %>" 
                   name="SECTION_ID" size="10">
               </td>
               <td>
-                <input value="<%= enrollment_set.getInt("student_id") %>" 
-                  name="STUDENT_ID" size="10">
+                <input value="<%= rs.getString("days_of_week") %>" 
+                  name="DAYS_OF_WEEK" size="10">
               </td>
               <td>
-                <input value="<%= enrollment_set.getString("grade_type") %>"
-                  name="GRADE_TYPE" size="15">
+                <input value="<%= rs.getString("time_range") %>"
+                  name="TIME_RANGE" size="15">
               </td>
               <td>
-                <input value="<%= enrollment_set.getInt("units") %>"
-                  name="UNITS" size="15">
+                <input value="<%= rs.getString("date_range") %>" 
+                  name="DATE_RANGE" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("mandatory") %>" 
+                  name="MANDATORY" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("type") %>" 
+                  name="TYPE" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("location") %>" 
+                  name="LOCATION" size="15">
               </td>
             </form>
           </tr>
@@ -122,7 +137,7 @@
       <%-- -------- Close Connection Code -------- --%>
       <%
           // Close the ResultSet
-          enrollment_set.close();
+          rs.close();
   
           // Close the Statement
           statement.close();

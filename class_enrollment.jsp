@@ -36,14 +36,19 @@
             // Begin transaction
             conn.setAutoCommit(false);
             
-            PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO MSPHDSTUDENTDEGREE VALUES (?, ?, ?)");
+            // Create the prepared statement and use it to
+            // INSERT the student attributes INTO the Student table.
+            PreparedStatement enroll_entry_state = conn.prepareStatement(
+              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("STUDENT_ID")));
-            pstmt.setString(2, request.getParameter("NAME_OF_DEGREE"));
-            pstmt.setString(3, request.getParameter("CONCENTRATION"));
-            int rowCount = pstmt.executeUpdate();
+            enroll_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
+            enroll_entry_state.setInt(2, Integer.parseInt(request.getParameter("STUDENT_ID")));
+            enroll_entry_state.setString(3, request.getParameter("GRADE_TYPE"));
+            enroll_entry_state.setString(4, "WIP");
+            enroll_entry_state.setString(5, "enrolled");
+            enroll_entry_state.setString(6, "WI14");
+            enroll_entry_state.setInt(7, Integer.parseInt(request.getParameter("UNITS")));
+            int rowCount = enroll_entry_state.executeUpdate();
 
             // Commit transaction
             conn.commit();
@@ -58,24 +63,25 @@
 
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
-          ResultSet rs = statement.executeQuery
-            ("SELECT * FROM MSPHDSTUDENTDEGREE");
+          ResultSet enrollment_set = statement.executeQuery
+            ("SELECT * from StudentCourseData WHERE grade = 'WIP'");
       %>
-        <h1>Enroll Student As MSPHD</h1>
+        <h1>Enroll Student in Class</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
+            <th>SECTION_ID</th>
             <th>STUDENT_ID</th>
-            <th>NAME_OF_DEGREE</th>
-            <th>CONCENTRATION</th>
-            <th>ACTION</th>
+            <th>GRADE_TYPE</th>
+            <th>UNITS</th>
           </tr>
           <tr>
-            <form action="enroll_MSPHD.jsp" method="get">
+            <form action="course_enrollment.jsp" method="get">
               <input type="hidden" value="insert" name="action">
+              <th><input value="" name="SECTION_ID" size="10"></th>
               <th><input value="" name="STUDENT_ID" size="10"></th>
-              <th><input value="" name="NAME_OF_DEGREE" size="10"></th>
-              <th><input value="" name="CONCENTRATION" size="15"></th>
+              <th><input value="" name="GRADE_TYPE" size="15"></th>
+              <th><input value="" name="UNITS" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -84,28 +90,30 @@
       <%
           // Iterate over the ResultSet
     
-          while ( rs.next() ) {
+          while ( enrollment_set.next() ) {
     
       %>
 
           <tr>
-            <form action="enroll_MSPHD.jsp" method="get">
+            <form action="course_enrollment.jsp" method="get">
               <input type="hidden" value="update" name="action">
-
               <td>
-                <input value="<%= rs.getString("student_id") %>" 
+                <input value="<%= enrollment_set.getInt("section_id") %>" 
+                  name="SECTION_ID" size="10">
+              </td>
+              <td>
+                <input value="<%= enrollment_set.getInt("student_id") %>" 
                   name="STUDENT_ID" size="10">
               </td>
-  
-              <%-- Get the student_id --%>
               <td>
-                <input value="<%= rs.getString("minor") %>" 
-                  name="NAME_OF_DEGREE" size="10">
+                <input value="<%= enrollment_set.getString("grade_type") %>"
+                  name="GRADE_TYPE" size="15">
               </td>
               <td>
-                <input value="<%= rs.getString("major") %>"
-                  name="CONCENTRATION" size="15">
+                <input value="<%= enrollment_set.getInt("units") %>"
+                  name="UNITS" size="15">
               </td>
+            </form>
           </tr>
       <%
           }
@@ -114,7 +122,7 @@
       <%-- -------- Close Connection Code -------- --%>
       <%
           // Close the ResultSet
-          rs.close();
+          enrollment_set.close();
   
           // Close the Statement
           statement.close();

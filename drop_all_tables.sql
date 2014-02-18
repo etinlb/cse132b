@@ -1,6 +1,8 @@
 drop table Meeting;
 drop table StudentCourseData;
+drop table INSTRUCTOROF;
 drop table THESISCOM;
+drop table Faculty;
 drop table Class;
 drop table OLDCOURSENAME;
 drop table Prereq;
@@ -9,6 +11,5 @@ drop table PROBATIONPERIODS;
 drop table MSPHDSTUDENTDEGREE;
 drop table UGSTUDENTDEGREE
 drop table Student;
-drop table Faculty;
 drop table DEGREEREQ;
 drop table DEGREE;

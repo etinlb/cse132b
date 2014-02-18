@@ -57,6 +57,7 @@ CREATE TABLE PROBATIONPERIODS (
   PRIMARY KEY (student_id, period),
   FOREIGN KEY (student_id) REFERENCES STUDENT
 );
+
 CREATE TABLE STUDENTCOURSEDATA(
   section_id  INT NOT NULL,
   student_id  INT NOT NULL,
@@ -78,6 +79,15 @@ CREATE TABLE FACULTY(
   f_title   VARCHAR(20) NOT NULL,
   d_name  VARCHAR(10) NOT NULL,
   PRIMARY KEY (fac_fname, fac_lname)
+);
+
+CREATE TABLE INSTRUCTOROF (
+  fac_fname   VARCHAR(20) NOT NULL,
+  fac_lname   VARCHAR(20) NOT NULL,
+  section_id  INT NOT NULL,
+  PRIMARY KEY (fac_fname, fac_lname, section_id),
+  FOREIGN KEY (section_id) REFERENCES COURSE,
+  FOREIGN KEY (fac_fname, fac_lname) REFERENCES FACULTY  
 );
 
 CREATE TABLE DEGREE(

@@ -78,7 +78,7 @@
             <th>UNITS</th>
           </tr>
           <tr>
-            <form action="past_enrollment.jsp" method="get">
+            <form action="past_classes.jsp" method="get">
               <input type="hidden" value="insert" name="action">
               <th><input value="" name="SECTION_ID" size="10"></th>
               <th><input value="" name="STUDENT_ID" size="10"></th>
@@ -99,7 +99,7 @@
       %>
 
           <tr>
-            <form action="past_enrollment.jsp" method="get">
+            <form action="past_classes.jsp" method="get">
               <input type="hidden" value="update" name="action">
               <td>
                 <input value="<%= enrollment_set.getInt("section_id") %>" 

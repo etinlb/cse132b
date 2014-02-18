@@ -87,13 +87,14 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM THESISCOM");
       %>
-        <h1>Add a Falcuty to a Students ThesisCom</h1>
+        <h1>Add a Faculty to a Student's Thesis Committee</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>ID</th>
+            <th>STUDENT ID</th>
             <th>FIRSTNAME</th>
             <th>LASTNAME</th>
+            <th>action</th>
           </tr>
           <tr>
             <form action="thesis.jsp" method="get">

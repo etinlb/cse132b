@@ -79,6 +79,52 @@
             </form>
           </tr>
 
+      <%-- -------- UPDATE Code -------- --%>
+      <%
+          // Check if an update is requested
+          if (action != null && action.equals("update")) {
+
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // UPDATE the student attributes in the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "UPDATE Degree SET avg_gpa = ?, WHERE name_of_degree = ?");
+
+            pstmt.setDouble(1, Double.parseDouble(request.getParameter("GPA")));
+            pstmt.setString(2, request.getParameter("NAME"));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+            conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
+
+      <%-- -------- DELETE Code -------- --%>
+      <%
+          // Check if a delete is requested
+          if (action != null && action.equals("delete")) {
+
+            // Begin transaction
+            conn.setAutoCommit(false);
+            
+            // Create the prepared statement and use it to
+            // DELETE the student FROM the Student table.
+            PreparedStatement pstmt = conn.prepareStatement(
+              "DELETE FROM Degree WHERE name_of_degree = ?");
+
+            pstmt.setString(
+              1, request.getParameter("NAME"));
+            int rowCount = pstmt.executeUpdate();
+
+            // Commit transaction
+             conn.commit();
+            conn.setAutoCommit(true);
+          }
+      %>
+
       <%-- -------- Iteration Code -------- --%>
       <%
           // Iterate over the ResultSet
@@ -107,6 +153,16 @@
               <td>
                 <input type="submit" value="Update">
               </td>
+            </form>
+            <form action="adddegree.jsp" method="get">
+              <input type="hidden" value="delete" name="action">
+              <input type="hidden" 
+                value="<%= rs.getString("name_of_degree") %>" name="NAME">
+              <%-- Button --%>
+              <td>
+                <input type="submit" value="Delete">
+              </td>
+            </form>
           </tr>
       <%
           }

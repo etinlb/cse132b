@@ -39,13 +39,14 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement class_entry_state = conn.prepareStatement(
-              "INSERT INTO Class VALUES (?, ?, ?, ?, ?)");
+              "INSERT INTO Class VALUES (?, ?, ?, ?, ?, ?)");
 
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setInt(2, Integer.parseInt(request.getParameter("COURSE_ID")));
             class_entry_state.setString(3, request.getParameter("C_TITLE"));
             class_entry_state.setString(4, request.getParameter("qtr"));
             class_entry_state.setInt(5, Integer.parseInt(request.getParameter("year")));
+            class_entry_state.setInt(6, Integer.parseInt(request.getParameter("limit")));
             int rowCount = class_entry_state.executeUpdate();
 
             // Commit transaction
@@ -70,6 +71,7 @@
             <th>COURSE TITLE</th>
             <th>QTR</th>
             <th>YEAR</th>
+            <th>ENROLL LIMIT</th>
             <th>ACTION</th>
           </tr>
           <tr>
@@ -80,6 +82,7 @@
               <th><input value="" name="C_TITLE" size="15"></th>
               <th><input value="" name="qtr" size="15"></th>
               <th><input value="" name="year" size="15"></th>
+              <th><input value="" name="limit" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -114,6 +117,10 @@
               <td>
                 <input value="<%= rs.getInt("year") %>" 
                   name="year" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("e_limit") %>" 
+                  name="limit" size="15">
               </td>
             </form>
           </tr>

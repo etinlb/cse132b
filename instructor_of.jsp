@@ -88,7 +88,7 @@
           ResultSet rs = statement.executeQuery
             ("SELECT * FROM Instructorof");
       %>
-        <h1>Assign a Falcuty a Section</h1>
+        <h1>Assign a Faculty a Section</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>

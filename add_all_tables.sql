@@ -86,7 +86,7 @@ CREATE TABLE INSTRUCTOROF (
   fac_lname   VARCHAR(20) NOT NULL,
   section_id  INT NOT NULL,
   PRIMARY KEY (fac_fname, fac_lname, section_id),
-  FOREIGN KEY (section_id) REFERENCES COURSE,
+  FOREIGN KEY (section_id) REFERENCES CLASS,
   FOREIGN KEY (fac_fname, fac_lname) REFERENCES FACULTY  
 );
 

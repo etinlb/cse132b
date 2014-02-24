@@ -9,7 +9,9 @@ drop table Prereq;
 drop table Course;
 drop table PROBATIONPERIODS;
 drop table MSPHDSTUDENTDEGREE;
-drop table UGSTUDENTDEGREE
+drop table UGSTUDENTDEGREE;
+drop table ENROLLMENTPERIOD;
 drop table Student;
+drop table CLASSCATEGORY;
 drop table DEGREEREQ;
 drop table DEGREE;

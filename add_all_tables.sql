@@ -56,7 +56,7 @@ CREATE TABLE PROBATIONPERIODS (
   s_period    DATE NOT NULL, /*YYYY-MM-DD*/
   e_period    DATE NOT NULL, /*YYYY-MM-DD*/
   reason      VARCHAR(60) NOT NULL,
-  PRIMARY KEY (student_id, period),
+  PRIMARY KEY (student_id, s_period, e_period),
   FOREIGN KEY (student_id) REFERENCES STUDENT
 );
 

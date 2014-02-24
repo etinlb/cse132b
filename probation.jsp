@@ -39,12 +39,13 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO PROBATIONPERIODS VALUES (?, ?, ?)");
+              "INSERT INTO PROBATIONPERIODS VALUES (?, ?, ?, ?)");
             
             pstmt.setInt(
               1, Integer.parseInt(request.getParameter("ID")));
-            pstmt.setString(2, request.getParameter("PERIOD"));
-            pstmt.setString(3, request.getParameter("REASON"));
+            pstmt.setString(2, request.getParameter("S_PERIOD"));
+            pstmt.setString(3, request.getParameter("E_PERIOD"));
+            pstmt.setString(4, request.getParameter("REASON"));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -93,7 +94,8 @@
         <table border="1">
           <tr>
             <th>STUDENT ID</th>
-            <th>PERIOD</th>
+            <th>START PERIOD</th>
+            <th>END PERIOD</th>
             <th>REASON</th>
             <th>ACTION</th>
           </tr>
@@ -101,7 +103,8 @@
             <form action="probation.jsp" method="get">
               <input type="hidden" value="insert" name="action">
               <th><input value="" name="ID" size="15"></th>
-              <th><input value="" name="PERIOD" size="15"></th>
+              <th><input value="" name="S_PERIOD" size="15"></th>
+              <th><input value="" name="E_PERIOD" size="15"></th>
               <th><input value="" name="REASON" size="60"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
@@ -125,12 +128,18 @@
                   name="ID" size="15">
               </td>
   
-              <%-- Get the PERIOD --%>
+              <%-- Get the START PERIOD --%>
               <td>
-                <input value="<%= rs.getString("period") %>" 
+                <input value="<%= rs.getString("s_period") %>" 
                   name="PERIOD" size="15">
               </td>
-  
+              
+              <%-- Get the END PERIOD --%>
+              <td>
+                <input value="<%= rs.getString("e_period") %>" 
+                  name="PERIOD" size="15">
+              </td>
+              
               <%-- Get the REASON --%>
               <td>
                 <input value="<%= rs.getString("reason") %>"

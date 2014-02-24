@@ -39,15 +39,16 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement class_entry_state = conn.prepareStatement(
-              "INSERT INTO MEETING VALUES (?, ?, ?, ?, ?, ?, ?)");
+              "INSERT INTO MEETING VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setString(2, request.getParameter("DAYS_OF_WEEK"));
             class_entry_state.setString(3, request.getParameter("TIME_RANGE"));
-            class_entry_state.setString(4, request.getParameter("DATE_RANGE"));
-            class_entry_state.setString(5, request.getParameter("MANDATORY"));
-            class_entry_state.setString(6, request.getParameter("TYPE"));
-            class_entry_state.setString(7, request.getParameter("LOCATION"));
+            class_entry_state.setString(4, request.getParameter("S_DATE"));
+            class_entry_state.setString(5, request.getParameter("E_DATE"));
+            class_entry_state.setString(6, request.getParameter("MANDATORY"));
+            class_entry_state.setString(7, request.getParameter("TYPE"));
+            class_entry_state.setString(8, request.getParameter("LOCATION"));
             int rowCount = class_entry_state.executeUpdate();
 
             // Commit transaction
@@ -70,7 +71,8 @@
             <th>SECTION ID</th>
             <th>DAYS OF WEEK</th>
             <th>TIME RANGE</th>
-            <th>DATE RANGE</th>
+            <th>START DATE</th>
+            <th>END DATE</th>
             <th>MANDATORY</th>
             <th>TYPE</th>
             <th>LOCATION</th>
@@ -82,7 +84,8 @@
               <th><input value="" name="SECTION_ID" size="10"></th>
               <th><input value="" name="DAYS_OF_WEEK" size="10"></th>
               <th><input value="" name="TIME_RANGE" size="15"></th>
-              <th><input value="" name="DATE_RANGE" size="15"></th>
+              <th><input value="" name="S_DATE" size="15"></th>
+              <th><input value="" name="E_DATE" size="15"></th>
               <th><input value="" name="MANDATORY" size="15"></th>
               <th><input value="" name="TYPE" size="15"></th>
               <th><input value="" name="LOCATION" size="15"></th>
@@ -114,8 +117,12 @@
                   name="TIME_RANGE" size="15">
               </td>
               <td>
-                <input value="<%= rs.getString("date_range") %>" 
-                  name="DATE_RANGE" size="15">
+                <input value="<%= rs.getString("s_date") %>"
+                  name="S_DATE" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("e_date") %>"
+                  name="E_DATE" size="15">
               </td>
               <td>
                 <input value="<%= rs.getString("mandatory") %>" 

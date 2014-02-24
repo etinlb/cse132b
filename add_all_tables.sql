@@ -4,7 +4,6 @@ CREATE TABLE COURSE(
   labwork   VARCHAR(30) NOT NULL,
   units     VARCHAR(10) NOT NULL,
   d_name  VARCHAR(20) NOT NULL
- 
 );
 
 CREATE TABLE OLDCOURSENAME (
@@ -27,7 +26,6 @@ CREATE TABLE CLASS (
   qtr     VARCHAR(20) NOT NULL,
   year    SMALLINT NOT NULL,
   e_limit SMALLINT NOT NULL,
-
   FOREIGN KEY  (course_id) REFERENCES COURSE
 );
 
@@ -35,10 +33,11 @@ CREATE TABLE MEETING (
   section_id  INT NOT NULL,
   days_of_week  VARCHAR(10) NOT NULL,
   time_range  VARCHAR(10) NOT NULL,
-  date_range  VARCHAR(30) NOT NULL,
+  s_date      DATE NOT NULL, /*YYYY-MM-DD*/
+  e_date      DATE NOT NULL, /*YYYY-MM-DD*/
   mandatory   VARCHAR(10) NOT NULL,
-  type    CHAR(2) NOT NULL,
-  location   VARCHAR(10) NOT NULL,
+  type        CHAR(2) NOT NULL,
+  location    VARCHAR(10) NOT NULL,
   FOREIGN KEY (section_id) REFERENCES CLASS
 );
 
@@ -49,13 +48,13 @@ CREATE TABLE STUDENT(
   MIDDLENAME VARCHAR(20),
   LASTNAME VARCHAR(20) NOT NULL,
   RESIDENCY VARCHAR(10) NOT NULL,
-  TYPE VARCHAR(10) NOT NULL,
-  E_PERIOD VARCHAR(100) NOT NULL
+  TYPE VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE PROBATIONPERIODS (
   student_id  INT NOT NULL,
-  period      VARCHAR(10) NOT NULL,
+  s_period    DATE NOT NULL, /*YYYY-MM-DD*/
+  e_period    DATE NOT NULL, /*YYYY-MM-DD*/
   reason      VARCHAR(60) NOT NULL,
   PRIMARY KEY (student_id, period),
   FOREIGN KEY (student_id) REFERENCES STUDENT
@@ -67,7 +66,6 @@ CREATE TABLE STUDENTCOURSEDATA(
   grade_type  VARCHAR(20),
   grade       VARCHAR(20),
   enrolled_wait_comp  VARCHAR(20),
-  qtr         VARCHAR(20),
   units       INT NOT NULL,
   PRIMARY KEY (section_id, student_id),
   FOREIGN KEY (section_id) REFERENCES CLASS,

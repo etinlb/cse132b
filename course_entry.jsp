@@ -45,7 +45,7 @@
               1, Integer.parseInt(request.getParameter("COURSE_ID")));
             course_entry_state.setString(2, request.getParameter("GRADEOPT"));
             course_entry_state.setString(3, request.getParameter("LABWORK"));
-            course_entry_state.setInt(4, Integer.parseInt(request.getParameter("UNITS")));
+            course_entry_state.setString(4, request.getParameter("UNITS"));
             course_entry_state.setString(5, request.getParameter("DEPARTMENT"));
             int rowCount = course_entry_state.executeUpdate();
 
@@ -112,7 +112,7 @@
                   name="labwork" size="15">
               </td>
               <td>
-                <input value="<%= course.getInt("units") %>" 
+                <input value="<%= course.getString("units") %>" 
                   name="units" size="15">
               </td>
               <td>

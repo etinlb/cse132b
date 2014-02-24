@@ -87,7 +87,7 @@ CREATE TABLE INSTRUCTOROF (
   fac_lname   VARCHAR(20) NOT NULL,
   section_id  INT NOT NULL,
   PRIMARY KEY (fac_fname, fac_lname, section_id),
-  FOREIGN KEY (section_id) REFERENCES COURSE,
+  FOREIGN KEY (section_id) REFERENCES CLASS,
   FOREIGN KEY (fac_fname, fac_lname) REFERENCES FACULTY  
 );
 
@@ -135,4 +135,20 @@ CREATE TABLE THESISCOM (
   PRIMARY KEY (student_id, fac_fname, fac_lname),
   FOREIGN KEY (student_id) REFERENCES STUDENT,
   FOREIGN KEY (fac_fname, fac_lname) REFERENCES FACULTY
+);
+
+CREATE TABLE ENROLLMENTPERIOD (
+  student_id INT NOT NULL,
+  s_date     DATE NOT NULL,
+  e_date     DATE NOT NULL,
+  PRIMARY KEY (student_id, s_date, e_date),
+  FOREIGN KEY (student_id) REFERENCES STUDENT
+);
+
+CREATE TABLE CLASSCATAGORY (
+  course_id  INT NOT NULL,
+  category   VARCHAR(20) NOT NULL,
+  name_of_degree VARCHAR(20) NOT NULL,
+  PRIMARY KEY (course_id, category, name_of_degree),
+  FOREIGN KEY (name_of_degree, category) REFERENCES DEGREEREQ
 );

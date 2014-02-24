@@ -1,0 +1,42 @@
+A) Fixing stuff
+  1. Meeting
+    -change date range to two fields
+  2. probation 
+    -same as meeting
+
+  3. student
+    -have enrollment table
+
+  4. Delete review link
+
+  5. Delete qtr
+
+  6. new table that ties classes to categories, like upper div, TE, concentration
+
+What to do
+  1. Display classes taken by student X - select from student table
+    -need current quarter, probably hardcoded
+    -join STUDENTCOURSEDATA and CLASS on section id where student_id = the passed in value, and qtr = current quarter
+
+  2. Display roster of class - select from class table
+    -Where section id = given section id, join STUDENTCOURSEDATA and STUDENT on student_id and also grab the UNITS and GRADETYPE
+
+  3. Display grade report of studentX - select from student table
+    -Select from the the STUDENTCOURSEDATA
+    -do stuff with views
+
+  4. Figure out degree reqs - select from student table
+    -Dorthy that motherfucker
+
+  5. Same as above but for MS
+
+Harder Queries
+  1. Assist a student in producing his class schedule - select from student table
+    -Display classes that conflict with the students current schedule
+  
+  2. Find a review session that works for all the students enrolled now. 
+
+Descision support
+  1. Aggregate the grade distribution for a course with professors
+    -
+

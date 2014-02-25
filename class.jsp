@@ -44,7 +44,7 @@
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setInt(2, Integer.parseInt(request.getParameter("COURSE_ID")));
             class_entry_state.setString(3, request.getParameter("C_TITLE"));
-            class_entry_state.setInt(4, Integer.parseInt(request.getParameter("qtr_year")));
+            class_entry_state.setString(4, request.getParameter("qtr_yr"));
             class_entry_state.setInt(5, Integer.parseInt(request.getParameter("limit")));
             int rowCount = class_entry_state.executeUpdate();
 

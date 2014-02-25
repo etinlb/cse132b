@@ -44,7 +44,7 @@
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setInt(2, Integer.parseInt(request.getParameter("COURSE_ID")));
             class_entry_state.setString(3, request.getParameter("C_TITLE"));
-            class_entry_state.setInt(4, Integer.parseInt(request.getParameter("year")));
+            class_entry_state.setInt(4, Integer.parseInt(request.getParameter("qtr_year")));
             class_entry_state.setInt(5, Integer.parseInt(request.getParameter("limit")));
             int rowCount = class_entry_state.executeUpdate();
 
@@ -68,8 +68,7 @@
             <th>SECTION ID</th>
             <th>COURSE ID</th>
             <th>COURSE TITLE</th>
-            <th>QTR</th>
-            <th>YEAR</th>
+            <th>QTR YEAR</th>
             <th>ENROLL LIMIT</th>
             <th>ACTION</th>
           </tr>
@@ -79,8 +78,7 @@
               <th><input value="" name="SECTION_ID" size="10"></th>
               <th><input value="" name="COURSE_ID" size="10"></th>
               <th><input value="" name="C_TITLE" size="15"></th>
-              <th><input value="" name="qtr" size="15"></th>
-              <th><input value="" name="year" size="15"></th>
+              <th><input value="" name="qtr_yr" size="15"></th>
               <th><input value="" name="limit" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
@@ -110,13 +108,10 @@
                   name="c_title" size="15">
               </td>
               <td>
-                <input value="<%= rs.getString("qtr") %>" 
-                  name="qtr" size="15">
+                <input value="<%= rs.getString("qtr_yr") %>" 
+                  name="qtr_yr" size="15">
               </td>
-              <td>
-                <input value="<%= rs.getInt("year") %>" 
-                  name="year" size="15">
-              </td>
+
               <td>
                 <input value="<%= rs.getString("e_limit") %>" 
                   name="limit" size="15">

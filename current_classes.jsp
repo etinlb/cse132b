@@ -40,7 +40,7 @@
       %>
         <h1>Select a Student</h1>
       <form action="current_classes.jsp" action="get">
-        <select>
+        <select name="student_id">
         <%
             // Iterate over the ResultSet
             while ( rs.next() ) {
@@ -61,6 +61,8 @@
           // Close the ResultSet from the student table
           rs.close();
 
+      %>
+
       <%-- -------- Display Code -------- --%>
       <%
           String action = request.getParameter("action");
@@ -68,19 +70,15 @@
           // Check if an insertion is requested
           if (action != null && action.equals("ListClasses")) {
             System.out.println("Hrer");
-            %>
-            <p>HHHHHHAHAHAHAKAUFHOIASDUHFKJLSDHFKJLHSDLKFH </p>
-            <%
               
             String student = "SELECT * " +
                               "FROM Class RIGHT JOIN Studentcoursedata " +
                               "ON Class.section_id=STUDENTCOURSEDATA.section_id "  +
-                              "WHERE Studentcoursedata.student_id=" + Integer.toString(1);
+                              "WHERE Studentcoursedata.student_id=" + request.getParameter("student_id") + 
+                              "AND Class.qtr_yr='WI14' ";
             ResultSet class_set = statement.executeQuery(student);
-
-            while(class_set.next()){
             %>
-                <table border="1">
+                            <table border="1">
                 <tr>
                   <th>SECTION_ID</th>
                   <th>COURSE_ID</th>
@@ -89,21 +87,27 @@
                   <th>ENROLLMENT_LIMIT</th>
                   <th>UNITS</th>
                 </tr>
+      <%
+            while(class_set.next()){
+      %>
                 <tr>
                   <form action="class_enrollment.jsp" method="get">
                     <input type="hidden" value="insert" name="action">
-                    <th>"<%= class_set.getInt("section_id") %>"</th>
-                    <th>"<%= class_set.getInt("course_id") %>"</th>
-                    <th>"<%= class_set.getInt("c_title") %>"</th>
-                    <th>"<%= class_set.getInt("qtr") %>"</th>
-                    <th>"<%= class_set.getInt("e_limit") %>"</th>
+                    <th><%= class_set.getInt("section_id") %></th>
+                    <th><%= class_set.getInt("course_id") %></th>
+                    <th><%= class_set.getString("c_title") %></th>
+                    <th><%= class_set.getString("qtr_yr") %></th>
+                    <th><%= class_set.getInt("e_limit") %></th>
+                    <th><%= class_set.getInt("units") %></th>
                   </form>
                 </tr>
           <%
+            }
+            // Close result set
+            class_set.close();
+
           }
   
-          // Close result set
-          class_set.close();
           // Close the Statement
           statement.close();
   

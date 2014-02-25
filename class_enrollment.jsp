@@ -39,15 +39,14 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement enroll_entry_state = conn.prepareStatement(
-              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?, ?)");
+              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?)");
 
             enroll_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             enroll_entry_state.setInt(2, Integer.parseInt(request.getParameter("STUDENT_ID")));
             enroll_entry_state.setString(3, request.getParameter("GRADE_TYPE"));
             enroll_entry_state.setString(4, "WIP");
             enroll_entry_state.setString(5, "enrolled");
-            enroll_entry_state.setString(6, "WI14");
-            enroll_entry_state.setInt(7, Integer.parseInt(request.getParameter("UNITS")));
+            enroll_entry_state.setInt(6, Integer.parseInt(request.getParameter("UNITS")));
             int rowCount = enroll_entry_state.executeUpdate();
 
             // Commit transaction

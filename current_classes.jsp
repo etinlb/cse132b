@@ -28,41 +28,6 @@
 
       %>
 
-      <%-- -------- Display Code -------- --%>
-      <%
-          String action = request.getParameter("action");
-          // Check if an insertion is requested
-          if (action != null && action.equals("ListClasses")) {
-
-            %>
-            <p>HHHHHHAHAHAHAKAUFHOIASDUHFKJLSDHFKJLHSDLKFH </p>
-            <%
-            
-/*             
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // INSERT the student attributes INTO the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO Student VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("SSN")));
-            pstmt.setInt(2, Integer.parseInt(request.getParameter("student_id")));
-            pstmt.setString(3, request.getParameter("FIRSTNAME"));
-            pstmt.setString(4, request.getParameter("MIDDLENAME"));
-            pstmt.setString(5, request.getParameter("LASTNAME"));
-            pstmt.setString(6, request.getParameter("RESIDENCY"));
-            pstmt.setString(7, request.getParameter("TYPE"));
-            pstmt.setString(8, request.getParameter("E_PER"));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-            conn.commit();
-            conn.setAutoCommit(true); */
-          }
-      %>
       <%-- -------- SELECT Statement Code -------- --%>
       <%
           // Create the statement
@@ -88,13 +53,57 @@
             }
         %>
         </select>
+        <input type="hidden" value="ListClasses" name="action">
         <input type="submit" value="ListClasses">
       </form>
       <%-- -------- Close Connection Code -------- --%>
       <%
-          // Close the ResultSet
+          // Close the ResultSet from the student table
           rs.close();
+
+      <%-- -------- Display Code -------- --%>
+      <%
+          String action = request.getParameter("action");
+          System.out.println(action);
+          // Check if an insertion is requested
+          if (action != null && action.equals("ListClasses")) {
+            System.out.println("Hrer");
+            %>
+            <p>HHHHHHAHAHAHAKAUFHOIASDUHFKJLSDHFKJLHSDLKFH </p>
+            <%
+              
+            String student = "SELECT * " +
+                              "FROM Class RIGHT JOIN Studentcoursedata " +
+                              "ON Class.section_id=STUDENTCOURSEDATA.section_id "  +
+                              "WHERE Studentcoursedata.student_id=" + Integer.toString(1);
+            ResultSet class_set = statement.executeQuery(student);
+
+            while(class_set.next()){
+            %>
+                <table border="1">
+                <tr>
+                  <th>SECTION_ID</th>
+                  <th>COURSE_ID</th>
+                  <th>COURSE_TITLE</th>
+                  <th>QTR</th>
+                  <th>ENROLLMENT_LIMIT</th>
+                  <th>UNITS</th>
+                </tr>
+                <tr>
+                  <form action="class_enrollment.jsp" method="get">
+                    <input type="hidden" value="insert" name="action">
+                    <th>"<%= class_set.getInt("section_id") %>"</th>
+                    <th>"<%= class_set.getInt("course_id") %>"</th>
+                    <th>"<%= class_set.getInt("c_title") %>"</th>
+                    <th>"<%= class_set.getInt("qtr") %>"</th>
+                    <th>"<%= class_set.getInt("e_limit") %>"</th>
+                  </form>
+                </tr>
+          <%
+          }
   
+          // Close result set
+          class_set.close();
           // Close the Statement
           statement.close();
   

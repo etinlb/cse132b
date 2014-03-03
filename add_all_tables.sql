@@ -228,3 +228,9 @@ CREATE TABLE CLASSCATEGORY (
   FOREIGN KEY (name_of_degree, category) REFERENCES DEGREEREQ
 );
 
+CREATE view pastclasses as
+SELECT co.course_id, s.student_id, s.grade_type, s.grade, c.qtr_yr
+FROM Course as co right join Class as c on co.course_id = c.course_id, studentcoursedata as s 
+WHERE s.grade <> 'WIP' AND c.section_id = s.section_id;
+
+

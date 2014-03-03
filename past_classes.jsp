@@ -77,29 +77,25 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet enrollment_set = statement.executeQuery
-            ("SELECT * FROM StudentCourseData WHERE StudentCourseData.grade<>'WIP' ");
+            ("SELECT * FROM pastclasses");
       %>
         <h1>Add Class to Student History</h1>
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>SECTION ID</th>
+            <th>COURSE ID</th>
             <th>STUDENT ID</th>
-            <th>GRADE TYPE</th>
             <th>GRADE</th>
-            <th>QUARTERTAKEN</th>
-            <th>UNITS</th>
+            <th>QTRYEAR</th>
             <th>ACTION</th>
           </tr>
           <tr>
             <form action="past_classes.jsp" method="get">
               <input type="hidden" value="insert" name="action">
-              <th><input value="" name="SECTION_ID" size="10"></th>
-              <th><input value="" name="STUDENT_ID" size="10"></th>
-              <th><input value="" name="GRADE_TYPE" size="15"></th>
+              <th><input value="" name="COURSE_ID" size="15"></th>
+              <th><input value="" name="STUDENT_ID" size="15"></th>
               <th><input value="" name="GRADE" size="15"></th>
-              <th><input value="" name="QTR" size="15"></th>
-              <th><input value="" name="UNITS" size="15"></th>
+              <th><input value="" name="QTRYR" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
@@ -109,36 +105,28 @@
           // Iterate over the ResultSet
     
           while ( enrollment_set.next() ) {
-    
+   
       %>
 
           <tr>
             <form action="past_classes.jsp" method="get">
               <input type="hidden" value="update" name="action">
               <td>
-                <input value="<%= enrollment_set.getInt("section_id") %>" 
-                  name="SECTION_ID" size="10">
+                <input value="<%= enrollment_set.getInt("course_id") %>" 
+                  name="SECTION_ID" size="15">
               </td>
               <td>
                 <input value="<%= enrollment_set.getInt("student_id") %>" 
-                  name="STUDENT_ID" size="10">
-              </td>
-              <td>
-                <input value="<%= enrollment_set.getString("grade_type") %>"
-                  name="GRADE_TYPE" size="15">
+                  name="STUDENT_ID" size="15">
               </td>
               <td>
                 <input value="<%= enrollment_set.getString("grade") %>"
                   name="GRADE" size="15">
               </td>   
               <td>
-                <input value="<%= enrollment_set.getString("units") %>"
+                <input value="<%= enrollment_set.getString("qtr_yr") %>"
                   name="UNITS" size="15">
               </td>          
-              <td>
-                <input value="<%= enrollment_set.getInt("units") %>"
-                  name="UNITS" size="15">
-              </td>
             </form>
           </tr>
       <%

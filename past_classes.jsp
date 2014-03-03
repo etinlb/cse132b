@@ -77,10 +77,7 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet enrollment_set = statement.executeQuery
-            ("SELECT * 
-              FROM StudentCourseData RIGHT JOIN Class ON
-              StudentCourseData.section_id = Class.section_id
-              WHERE StudentCourseData.grade<>'WIP' ");
+            ("SELECT * FROM StudentCourseData WHERE StudentCourseData.grade<>'WIP' ");
       %>
         <h1>Add Class to Student History</h1>
       <!-- Add an HTML table header row to format the results -->

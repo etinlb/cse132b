@@ -124,11 +124,11 @@ CREATE TABLE STUDENTCOURSEDATA(
 
 INSERT INTO STUDENTCOURSEDATA VALUES
 (1, 1, 'P/NP', 'WIP', 'enrolled', 4),
-(1, 2, 'LTTR', 'WIP', 'enrolled', 4),
-(1, 3, 'LTTR', 'WIP', 'enrolled', 4),
-(1, 4, 'P/NP', 'A', 'comp', 4),
-(1, 5, 'P/NP', 'B', 'comp', 4),
-(2, 1, 'P/NP', 'WIP', 'enrolled', 4),
+(2, 1, 'LTTR', 'WIP', 'enrolled', 4),
+(3, 1, 'LTTR', 'WIP', 'enrolled', 4),
+(4, 1, 'P/NP', 'A', 'comp', 4),
+(5, 1, 'P/NP', 'B', 'comp', 4),
+(1, 2, 'P/NP', 'WIP', 'enrolled', 4),
 (2, 2, 'P/NP', 'WIP', 'enrolled', 4);
 
 

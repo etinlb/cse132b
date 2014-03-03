@@ -16,14 +16,27 @@
       <%-- -------- Open Connection Code -------- --%>
       <%
         try {
+          Class.forName("org.postgresql.Driver"); 
+          Connection conn = null;
+          try {
           // Load Oracle Driver class file
-          DriverManager.registerDriver
-            (new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-  
+           // (new com.microsoft.sqlserver.jdbc.SQLServerDriver());
           // Make a connection to the Oracle datasource "cse132b"
-          Connection conn = DriverManager.getConnection
-            ("jdbc:sqlserver://localhost:1433;databaseName=cse132b", 
+          //Connection conn = null;
+          conn = DriverManager.getConnection
+            ("jdbc:postgresql://localhost:8080/cse132b", 
               "sa", "123456");
+          } catch (Exception e){
+              try{
+                  //Class.forName("org.postgresql.Driver"); 
+                  // Make a connection to the Oracle datasource "cse132b"
+                 conn = DriverManager.getConnection
+                        ("jdbc:postgresql://localhost:5432/cse132b", 
+                         "sa", "123456");
+              } catch (Exception es){
+                out.println(e.getMessage());
+              }
+          }
 
       %>
 

@@ -15,3 +15,4 @@ drop table Student;
 drop table CLASSCATEGORY;
 drop table DEGREEREQ;
 drop table DEGREE;
+drop table QUARTERPERIODS;

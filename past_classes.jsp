@@ -77,7 +77,10 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet enrollment_set = statement.executeQuery
-            ("SELECT * from StudentCourseData WHERE grade<>'WIP'");
+            ("SELECT * 
+              FROM StudentCourseData RIGHT JOIN Class ON
+              StudentCourseData.section_id = Class.section_id
+              WHERE StudentCourseData.grade<>'WIP' ");
       %>
         <h1>Add Class to Student History</h1>
       <!-- Add an HTML table header row to format the results -->
@@ -130,11 +133,11 @@
               <td>
                 <input value="<%= enrollment_set.getString("grade") %>"
                   name="GRADE" size="15">
-              </td>
+              </td>   
               <td>
-                <input value="<%= enrollment_set.getString("qtr") %>"
-                  name="QTR" size="15">
-              </td>              
+                <input value="<%= enrollment_set.getString("units") %>"
+                  name="UNITS" size="15">
+              </td>          
               <td>
                 <input value="<%= enrollment_set.getInt("units") %>"
                   name="UNITS" size="15">

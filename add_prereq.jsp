@@ -164,7 +164,7 @@
 
               <%-- Get the ID --%>
               <td>
-                <input value="<%= rs.getInt("course_id") %>" 
+                <input value="<%= rs.getString("course_id") %>" 
                   name="ID" size="15">
               </td>
   

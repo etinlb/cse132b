@@ -13,7 +13,12 @@ INSERT INTO COURSE VALUES
 ('CSE102', 'LTTR', 'Y', 1, 4, 'CSE'),
 ('COGS103', 'LTTR', 'Y', 4, 4, 'COGS'),
 ('CSE10', 'P/NP', 'Y', 2, 6, 'CSE'),
-('CSE11',  'LTTR', 'Y', 4, 4, 'CSE');
+('CSE11',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE200',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE201',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE202',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE203',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE204',  'LTTR', 'Y', 4, 4, 'CSE');
 
 
 CREATE TABLE QUARTERPERIODS (
@@ -62,7 +67,13 @@ INSERT INTO CLASS VALUES
 (3, 'CSE102', 'Bigger Algorithms', 'WI14', 10),
 (4, 'COGS103', 'Brain Junk', 'FA13', 40),
 (5, 'CSE10', 'OO Programming', 'FA13', 29),
-(6, 'CSE11',  'OO2 Programming', 'FA13', 40);
+(6, 'CSE200',  'Master Class', 'FA13', 40),
+(7, 'CSE201',  'Another master class', 'FA13', 40),
+(8, 'CSE202',  'Stuff and things', 'FA13', 40),
+(9, 'CSE203',  'Quantum Moonstuff', 'FA13', 40),
+(10, 'CSE204',  'OO3 Prgramming', 'FA13', 40),
+(11, 'CSE11',  'OO2 Prgramming', 'FA13', 40);
+
 
 
 CREATE TABLE MEETING (
@@ -175,7 +186,9 @@ INSERT INTO DEGREEREQ VALUES
 ('Computer Science', 'UD', 12),
 ('Computer Science', 'LD', 8),
 ('Cognitive Science', 'UD', 8),
-('Cognitive Science', 'LD', 8);
+('Cognitive Science', 'LD', 8),
+('Database Design', 'Databases', 12),
+('Database Design', 'Er Schemas', 12);
 
 
 CREATE TABLE UGSTUDENTDEGREE (
@@ -238,4 +251,12 @@ INSERT INTO CLASSCATEGORY VALUES
 ('CSE102', 'UD', 'Computer Science'),
 ('COGS103', 'UD', 'Cognitive Science'),
 ('CSE10',  'LD', 'Computer Science'),
-('CSE11',  'LD', 'Computer Science');
+('CSE11',  'LD', 'Computer Science'),
+('CSE200',  'Databases', 'Database Design'),
+('CSE201',  'Databases', 'Database Design'),
+('CSE202',  'Databases', 'Database Design'),
+('CSE203',  'Databases', 'Database Design'),
+('CSE204',  'Databases', 'Database Design'),
+('CSE200',  'Er Schemas', 'Database Design'),
+('CSE201',  'Er Schemas', 'Database Design');
+

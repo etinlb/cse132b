@@ -60,7 +60,7 @@
         %>
 
           <option value="<%=rs.getString("c_title")%>">
-            Title = <%= rs.getString("c_title")%> Course_id = <%= rs.getInt("course_id")%>, QUARTER = <%= rs.getString("qtr_yr")%> Section_id = <%=rs.getInt("section_id")%> 
+            Title = <%= rs.getString("c_title")%> Course_id = <%= rs.getString("course_id")%>, QUARTER = <%= rs.getString("qtr_yr")%> Section_id = <%=rs.getInt("section_id")%> 
           </option>
         <%
             }

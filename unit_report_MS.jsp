@@ -51,8 +51,8 @@
           // the student attributes FROM the Student table.
           ResultSet rs_student = statement.executeQuery
             ("SELECT * FROM Student " +
-             "INNER JOIN Ugstudentdegree ON "  +
-             "Student.student_id = Ugstudentdegree.student_id");
+             "INNER JOIN msphdstudentdegree ON "  +
+             "Student.student_id = msphdstudentdegree.student_id");
       %>
         <h1>Select a Student And Degree</h1>
       <form action="unit_report_ug.jsp" action="get">
@@ -121,8 +121,8 @@
             while(categories.next()){
               categories_hash.put(categories.getString("category"), categories.getInt("units_req"));
               total += categories.getInt("units_req");
+
             }  
-            categories_hash.put("Total", total);
             String student_units = "SELECT cc.category, SUM(units) FROM Studentcoursedata AS sd " +
                             "INNER JOIN Class ON Class.section_id = sd.section_id " +
                             "INNER JOIN Classcategory AS cc ON cc.course_id = Class.course_id " +
@@ -136,23 +136,17 @@
                = new Hashtable<String, Integer>();
             while(units_set.next()){
               int comp_units = units_set.getInt("sum");
-              System.out.println(comp_units);
               Integer needed = categories_hash.get(units_set.getString("category"));
-              System.out.println(needed);
               int diff;
               total_taken +=0;
               if(needed == null){
-                System.out.println("null");
                 diff = needed;
               }else{
-                System.out.println("else");
-                diff = needed - comp_units;
+                diff = comp_units - needed;
               }
               if(diff < 0){
-                System.out.println("less zero" + diff);
                 diff = 0;
               }
-              System.out.println(diff);
               completed_hash.put(units_set.getString("category"), diff);
             }
             total = total-total_taken; 

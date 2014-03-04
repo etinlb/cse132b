@@ -127,7 +127,7 @@
             <form action="course_entry.jsp" method="get">
               <input type="hidden" value="update" name="action">
               <td>
-                <input value="<%= course.getInt("course_id") %>" 
+                <input value="<%= course.getString("course_id") %>" 
                   name="course_id" size="10">
               </td>
               <td>

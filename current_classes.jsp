@@ -107,7 +107,7 @@
                   <form action="class_enrollment.jsp" method="get">
                     <input type="hidden" value="insert" name="action">
                     <th><%= class_set.getInt("section_id") %></th>
-                    <th><%= class_set.getInt("course_id") %></th>
+                    <th><%= class_set.getString("course_id") %></th>
                     <th><%= class_set.getString("c_title") %></th>
                     <th><%= class_set.getString("qtr_yr") %></th>
                     <th><%= class_set.getInt("e_limit") %></th>

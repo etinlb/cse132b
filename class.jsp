@@ -116,7 +116,7 @@
                   name="section_id" size="10">
               </td>
               <td>
-                <input value="<%= rs.getInt("course_id") %>" 
+                <input value="<%= rs.getString("course_id") %>" 
                   name="course_id" size="10">
               </td>
               <td>

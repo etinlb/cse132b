@@ -1,5 +1,5 @@
 ﻿CREATE TABLE COURSE(
-  course_id   INT PRIMARY KEY,
+  course_id   VARCHAR(20) PRIMARY KEY,
   grade_opt   VARCHAR(6) NOT NULL,
   labwork     VARCHAR(30) NOT NULL,
   start_units SMALLINT NOT NULL,
@@ -8,12 +8,12 @@
 );
 
 INSERT INTO COURSE VALUES
-(100, 'P/NP', 'Y', 4, 4, 'CSE'),
-(101, 'LTTR', 'Y', 2, 4, 'CSE'),
-(102, 'LTTR', 'Y', 1, 4, 'CSE'),
-(103, 'LTTR', 'Y', 4, 4, 'COGS'),
-(10, 'P/NP', 'Y', 2, 6, 'CSE'),
-(11,  'LTTR', 'Y', 4, 4, 'CSE');
+('CSE100', 'P/NP', 'Y', 4, 4, 'CSE'),
+('CSE101', 'LTTR', 'Y', 2, 4, 'CSE'),
+('CSE102', 'LTTR', 'Y', 1, 4, 'CSE'),
+('COGS103', 'LTTR', 'Y', 4, 4, 'COGS'),
+('CSE10', 'P/NP', 'Y', 2, 6, 'CSE'),
+('CSE11',  'LTTR', 'Y', 4, 4, 'CSE');
 
 
 CREATE TABLE QUARTERPERIODS (
@@ -57,12 +57,12 @@ CREATE TABLE CLASS (
   FOREIGN KEY  (qtr_yr) REFERENCES QUARTERPERIODS  
 );
 INSERT INTO CLASS VALUES
-(1, 100, 'DataStrucs', 'WI14', 40),
-(2, 101, 'Algorithms', 'WI14', 20),
-(3, 102, 'Bigger Algorithms', 'WI14', 10),
-(4, 103, 'Brain Junk', 'FA13', 40),
-(5, 10, 'OO Programming', 'FA13', 29),
-(6, 11,  'OO2 Programming', 'FA13', 40);
+(1, 'CSE100', 'DataStrucs', 'WI14', 40),
+(2, 'CSE101', 'Algorithms', 'WI14', 20),
+(3, 'CSE102', 'Bigger Algorithms', 'WI14', 10),
+(4, 'COGS103', 'Brain Junk', 'FA13', 40),
+(5, 'CSE10', 'OO Programming', 'FA13', 29),
+(6, 'CSE11',  'OO2 Programming', 'FA13', 40);
 
 
 CREATE TABLE MEETING (
@@ -228,3 +228,10 @@ CREATE TABLE CLASSCATEGORY (
   FOREIGN KEY (name_of_degree, category) REFERENCES DEGREEREQ
 );
 
+INSERT INTO CLASSCATEGORY VALUES
+('CSE100', 'UD', 'Computer Science'),
+('CSE101', 'UD', 'Computer Science'),
+('CSE102', 'UD', 'Computer Science'),
+('COGS103', 'UD', 'Cognitive Science'),
+('CSE10',  'LD', 'Computer Science'),
+('CSE11',  'LD', 'Computer Science');

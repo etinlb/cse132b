@@ -52,15 +52,14 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement enroll_entry_state = conn.prepareStatement(
-              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?, ?)");
+              "INSERT INTO StudentCourseData VALUES (?, ?, ?, ?, ?, ?)");
 
             enroll_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             enroll_entry_state.setInt(2, Integer.parseInt(request.getParameter("STUDENT_ID")));
             enroll_entry_state.setString(3, request.getParameter("GRADE_TYPE"));
             enroll_entry_state.setString(4, request.getParameter("GRADE"));
             enroll_entry_state.setString(5, "Completed");
-            enroll_entry_state.setString(6, request.getParameter("QTRYR"));
-            enroll_entry_state.setInt(7, Integer.parseInt(request.getParameter("UNITS")));
+            enroll_entry_state.setInt(6, Integer.parseInt(request.getParameter("UNITS")));
             int rowCount = enroll_entry_state.executeUpdate();
 
             // Commit transaction
@@ -87,7 +86,6 @@
             <th>STUDENT ID</th>
             <th>GRADE TYPE</th>
             <th>GRADE</th>
-            <th>QTRYEAR</th>
 						<th>UNITS</th>
             <th>ACTION</th>
           </tr>
@@ -98,7 +96,6 @@
               <th><input value="" name="STUDENT_ID" size="15"></th>
               <th><input value="" name="GRADE_TYPE" size="15"></th>
               <th><input value="" name="GRADE" size="15"></th>
-              <th><input value="" name="QTRYR" size="15"></th>
               <th><input value="" name="UNITS" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
@@ -131,10 +128,6 @@
                 <input value="<%= enrollment_set.getString("grade") %>"
                   name="GRADE" size="15">
               </td>   
-              <td>
-                <input value="<%= enrollment_set.getString("qtr_yr") %>"
-                  name="QTRYR" size="15">
-              </td>          
               <td>
                 <input value="<%= enrollment_set.getInt("units") %>" 
                   name="UNITS" size="15">

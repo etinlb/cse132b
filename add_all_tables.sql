@@ -72,7 +72,7 @@ CREATE TABLE MEETING (
   end_time  VARCHAR(10) NOT NULL,
   mandatory   VARCHAR(10) NOT NULL,
   type        CHAR(2) NOT NULL,
-  location    VARCHAR(10) NOT NULL,
+  location    VARCHAR(20) NOT NULL,
   FOREIGN KEY (section_id) REFERENCES CLASS
 );
 
@@ -116,20 +116,22 @@ CREATE TABLE STUDENTCOURSEDATA(
   grade_type  VARCHAR(20),
   grade       VARCHAR(20),
   enrolled_wait_comp  VARCHAR(20),
+  qtr_yr      VARCHAR(10) NOT NULL,
   units       INT NOT NULL,
   PRIMARY KEY (section_id, student_id),
   FOREIGN KEY (section_id) REFERENCES CLASS,
+  FOREIGN KEY (qtr_yr) REFERENCES QUARTERPERIODS,
   FOREIGN KEY (student_id) REFERENCES STUDENT
 );
 
 INSERT INTO STUDENTCOURSEDATA VALUES
-(1, 1, 'P/NP', 'WIP', 'enrolled', 4),
-(2, 1, 'LTTR', 'WIP', 'enrolled', 4),
-(3, 1, 'LTTR', 'WIP', 'enrolled', 4),
-(4, 1, 'P/NP', 'A', 'comp', 4),
-(5, 1, 'P/NP', 'B', 'comp', 4),
-(1, 2, 'P/NP', 'WIP', 'enrolled', 4),
-(2, 2, 'P/NP', 'WIP', 'enrolled', 4);
+(1, 1, 'P/NP', 'WIP', 'enrolled', 'WI13', 4),
+(2, 1, 'LTTR', 'WIP', 'enrolled', 'FA12', 4),
+(3, 1, 'LTTR', 'WIP', 'enrolled', 'WI13', 4),
+(4, 1, 'P/NP', 'A',   'comp'    , 'SP13', 4),
+(5, 1, 'P/NP', 'B',   'comp'    , 'FA13', 4),
+(1, 2, 'P/NP', 'WIP', 'enrolled', 'WI14', 4),
+(2, 2, 'P/NP', 'WIP', 'enrolled', 'SP14', 4);
 
 
 CREATE TABLE FACULTY(
@@ -228,9 +230,6 @@ CREATE TABLE CLASSCATEGORY (
   FOREIGN KEY (name_of_degree, category) REFERENCES DEGREEREQ
 );
 
-CREATE view pastclasses as
-SELECT co.course_id, s.student_id, s.grade_type, s.grade, c.qtr_yr
-FROM Course as co right join Class as c on co.course_id = c.course_id, studentcoursedata as s 
-WHERE s.grade <> 'WIP' AND c.section_id = s.section_id;
+
 
 

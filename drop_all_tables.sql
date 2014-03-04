@@ -1,3 +1,4 @@
+drop view  PASTCLASSES;
 drop table Meeting;
 drop table StudentCourseData;
 drop table INSTRUCTOROF;

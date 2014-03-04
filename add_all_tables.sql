@@ -1,5 +1,4 @@
-
-﻿CREATE TABLE COURSE(
+CREATE TABLE COURSE(
   course_id   VARCHAR(20) PRIMARY KEY,
   grade_opt   VARCHAR(6) NOT NULL,
   labwork     VARCHAR(30) NOT NULL,
@@ -33,24 +32,24 @@ INSERT INTO QUARTERPERIODS VALUES
 
 
 CREATE TABLE OLDCOURSENAME (
-  course_id   INT NOT NULL,
+  course_id   VARCHAR(20) NOT NULL,
   old_course_id   INT NOT NULL,
   FOREIGN KEY (course_id) REFERENCES COURSE
 );
 
 CREATE TABLE PREREQ (
-  pre_course_id INT NOT NULL,
-  course_id INT   NOT NULL,
+  pre_course_id VARCHAR(20) NOT NULL,
+  course_id     VARCHAR(20) NOT NULL,
   FOREIGN KEY (pre_course_id) REFERENCES COURSE,
   FOREIGN KEY (course_id) REFERENCES COURSE
 );
 INSERT INTO PREREQ VALUES
-(11, 100),
-(10, 11);
+('CSE11', 'CSE100'),
+('CSE10', 'CSE11');
 
 CREATE TABLE CLASS (
   section_id  INT PRIMARY KEY,
-  course_id   INT NOT NULL,
+  course_id   VARCHAR(20) NOT NULL,
   c_title     VARCHAR(20) NOT NULL,
   qtr_yr     VARCHAR(10) NOT NULL,
   e_limit SMALLINT NOT NULL,
@@ -73,7 +72,7 @@ CREATE TABLE MEETING (
   end_time  VARCHAR(10) NOT NULL,
   mandatory   VARCHAR(10) NOT NULL,
   type        CHAR(2) NOT NULL,
-  location    VARCHAR(10) NOT NULL,
+  location    VARCHAR(20) NOT NULL,
   FOREIGN KEY (section_id) REFERENCES CLASS
 );
 
@@ -153,13 +152,15 @@ CREATE TABLE INSTRUCTOROF (
 
 CREATE TABLE DEGREE(
   name_of_degree VARCHAR(20) NOT NULL,
+  type    VARCHAR(3),
   avg_gpa NUMERIC(4,3) NOT NULL,
   PRIMARY KEY (name_of_degree)
 );
 
 INSERT INTO DEGREE VALUES
-('Computer Science', 3.2),
-('MS Computer Science', 3.2);
+('Computer Science', 'BS', 3.2),
+('Cognitive Science', 'BS', 3.2),
+('Database Design', 'MS', 3.2);
 
 CREATE TABLE DEGREEREQ (
   name_of_degree VARCHAR(20) NOT NULL,
@@ -172,7 +173,9 @@ CREATE TABLE DEGREEREQ (
 
 INSERT INTO DEGREEREQ VALUES
 ('Computer Science', 'UD', 12),
-('Computer Science', 'LD', 8);
+('Computer Science', 'LD', 8),
+('Cognitive Science', 'UD', 8),
+('Cognitive Science', 'LD', 8);
 
 
 CREATE TABLE UGSTUDENTDEGREE (
@@ -201,7 +204,7 @@ CREATE TABLE MSPHDSTUDENTDEGREE (
   ON DELETE CASCADE
 );
 INSERT INTO MSPHDSTUDENTDEGREE VALUES
-(3, 'MS Computer Science', 'MasterGuy');
+(3, 'Database Design', 'MasterGuy');
 
 
 CREATE TABLE THESISCOM (
@@ -222,7 +225,7 @@ CREATE TABLE ENROLLMENTPERIOD (
 );
 
 CREATE TABLE CLASSCATEGORY (
-  course_id  INT NOT NULL,
+  course_id  VARCHAR(20) NOT NULL,
   category   VARCHAR(20) NOT NULL,
   name_of_degree VARCHAR(20) NOT NULL,
   PRIMARY KEY (course_id, category, name_of_degree),
@@ -236,8 +239,3 @@ INSERT INTO CLASSCATEGORY VALUES
 ('COGS103', 'UD', 'Cognitive Science'),
 ('CSE10',  'LD', 'Computer Science'),
 ('CSE11',  'LD', 'Computer Science');
-/*
-﻿SELECT s.qtr_yr, SUM(s.number_grade * s.units)/s.units as acc
-FROM CLASS as c, STUDENTCOURSEDATA s INNER JOIN GRADE_CONVERSION g on st.grade = g.letter_grade
-WHERE s.student_id = 1 AND s.section_id = c.section_id AND s.grade <> 'WIP' AND s.grade <> 'IN'
-GROUP BY s.qtr_yr;*/

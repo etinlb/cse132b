@@ -50,7 +50,9 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet rs_student = statement.executeQuery
-            ("SELECT * FROM Student");
+            ("SELECT * FROM Student " +
+             "INNER JOIN Ugstudentdegree ON "  +
+             "Student.student_id = Ugstudentdegree.student_id");
       %>
         <h1>Select a Student And Degree</h1>
       <form action="unit_report_ug.jsp" action="get">

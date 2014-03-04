@@ -76,7 +76,7 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet rs_degree = statement.executeQuery
-            ("SELECT * FROM Degree");
+            ("SELECT * FROM Degree WHERE type='BS'");
         %>
         <select name="degree">
         <%
@@ -130,6 +130,7 @@
                             "WHERE sd.student_id='" + request.getParameter("student_id")  + "'" +
                             "AND cc.name_of_degree='" + request.getParameter("degree") + "'" +
                             "GROUP BY cc.category" ;
+
             ResultSet units_set = statement.executeQuery(student_units);
             int total_taken = 0;
             Hashtable<String, Integer> completed_hash
@@ -140,7 +141,7 @@
               Integer needed = categories_hash.get(units_set.getString("category"));
               System.out.println(needed);
               int diff;
-              total_taken +=0;
+              total_taken += comp_units;
               if(needed == null){
                 System.out.println("null");
                 diff = needed;
@@ -155,10 +156,12 @@
               System.out.println(diff);
               completed_hash.put(units_set.getString("category"), diff);
             }
+
             total = total-total_taken; 
             if(total < 0){
               total = 0;
-            }     
+            }   
+            completed_hash.put("Total", total);
             %>
               <table border="1">
               <tr>

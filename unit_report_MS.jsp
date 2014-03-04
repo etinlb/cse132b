@@ -55,7 +55,7 @@
              "Student.student_id = msphdstudentdegree.student_id");
       %>
         <h1>Select a Student And Degree</h1>
-      <form action="unit_report_ug.jsp" action="get">
+      <form action="unit_report_ms.jsp" action="get">
         <select name="student_id">
         <%
             // Iterate over the ResultSet
@@ -76,7 +76,7 @@
           // Use the created statement to SELECT
           // the student attributes FROM the Student table.
           ResultSet rs_degree = statement.executeQuery
-            ("SELECT * FROM Degree");
+            ("SELECT * FROM Degree WHERE type='MS' OR type='PHD'");
         %>
         <select name="degree">
         <%
@@ -126,7 +126,7 @@
             String student_units = "SELECT cc.category, SUM(units) FROM Studentcoursedata AS sd " +
                             "INNER JOIN Class ON Class.section_id = sd.section_id " +
                             "INNER JOIN Classcategory AS cc ON cc.course_id = Class.course_id " +
-                            "INNER JOIN Ugstudentdegree AS ug ON sd.student_id = ug.student_id " +
+                            "INNER JOIN msphdstudentdegree AS ms ON sd.student_id = ms.student_id " +
                             "WHERE sd.student_id='" + request.getParameter("student_id")  + "'" +
                             "AND cc.name_of_degree='" + request.getParameter("degree") + "'" +
                             "GROUP BY cc.category" ;
@@ -142,7 +142,7 @@
               if(needed == null){
                 diff = needed;
               }else{
-                diff = comp_units - needed;
+                diff = needed - comp_units;
               }
               if(diff < 0){
                 diff = 0;

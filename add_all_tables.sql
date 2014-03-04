@@ -18,7 +18,8 @@ INSERT INTO COURSE VALUES
 ('CSE201',  'LTTR', 'Y', 4, 4, 'CSE'),
 ('CSE202',  'LTTR', 'Y', 4, 4, 'CSE'),
 ('CSE203',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE204',  'LTTR', 'Y', 4, 4, 'CSE');
+('CSE204',  'LTTR', 'Y', 4, 4, 'CSE'),
+('CSE205',  'LTTR', 'Y', 4, 4, 'CSE');
 
 
 CREATE TABLE QUARTERPERIODS (
@@ -67,12 +68,13 @@ INSERT INTO CLASS VALUES
 (3, 'CSE102', 'Bigger Algorithms', 'WI14', 10),
 (4, 'COGS103', 'Brain Junk', 'FA13', 40),
 (5, 'CSE10', 'OO Programming', 'FA13', 29),
-(6, 'CSE200',  'Master Class', 'FA13', 40),
-(7, 'CSE201',  'Another master class', 'FA13', 40),
+(6, 'CSE200',  'Master Class', 'WI14', 40),
+(7, 'CSE201',  'Another master class', 'WI14', 40),
 (8, 'CSE202',  'Stuff and things', 'FA13', 40),
 (9, 'CSE203',  'Quantum Moonstuff', 'FA13', 40),
-(10, 'CSE204',  'OO3 Prgramming', 'FA13', 40),
-(11, 'CSE11',  'OO2 Prgramming', 'FA13', 40);
+(10, 'CSE204',  'OO3 Prgramming', 'SP13', 40),
+(11, 'CSE205',  'OO4 Prgramming', 'SP13', 40),
+(12, 'CSE11',  'OO2 Prgramming', 'SP13', 40);
 
 
 
@@ -140,7 +142,12 @@ INSERT INTO STUDENTCOURSEDATA VALUES
 (4, 1, 'P/NP', 'A', 'comp', 4),
 (5, 1, 'P/NP', 'B', 'comp', 4),
 (1, 2, 'P/NP', 'WIP', 'enrolled', 4),
-(2, 2, 'P/NP', 'WIP', 'enrolled', 4);
+(6, 3, 'LTTR', 'WIP', 'enrolled', 4),
+(7, 3, 'LTTR', 'WIP', 'enrolled', 4),
+(8, 3, 'LTTR', 'A', 'enrolled', 4),
+(9, 3, 'LTTR', 'A', 'enrolled', 4),
+(10, 3, 'LTTR', 'B', 'enrolled', 4),
+(12, 3, 'LTTR', 'B', 'enrolled', 4);
 
 
 CREATE TABLE FACULTY(
@@ -258,5 +265,21 @@ INSERT INTO CLASSCATEGORY VALUES
 ('CSE203',  'Databases', 'Database Design'),
 ('CSE204',  'Databases', 'Database Design'),
 ('CSE200',  'Er Schemas', 'Database Design'),
-('CSE201',  'Er Schemas', 'Database Design');
+('CSE201',  'Er Schemas', 'Database Design'),
+('CSE205',  'Databases', 'Database Design');
 
+
+create table GRADE_CONVERSION
+( LETTER_GRADE CHAR(2) NOT NULL,
+NUMBER_GRADE DECIMAL(2,1)
+);
+insert into grade_conversion values('A+', 4.3);
+insert into grade_conversion values('A', 4);
+insert into grade_conversion values('A-', 3.7);
+insert into grade_conversion values('B+', 3.4);
+insert into grade_conversion values('B', 3.1);
+insert into grade_conversion values('B-', 2.8);
+insert into grade_conversion values('C+', 2.5);
+insert into grade_conversion values('C', 2.2);
+insert into grade_conversion values('C-', 1.9);
+insert into grade_conversion values('D', 1.6); 

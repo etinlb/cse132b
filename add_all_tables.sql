@@ -56,7 +56,7 @@ INSERT INTO PREREQ VALUES
 CREATE TABLE CLASS (
   section_id  INT PRIMARY KEY,
   course_id   VARCHAR(20) NOT NULL,
-  c_title     VARCHAR(20) NOT NULL,
+  c_title     VARCHAR(40) NOT NULL,
   qtr_yr     VARCHAR(10) NOT NULL,
   e_limit SMALLINT NOT NULL,
   FOREIGN KEY  (course_id) REFERENCES COURSE,
@@ -72,9 +72,19 @@ INSERT INTO CLASS VALUES
 (7, 'CSE201',  'Another master class', 'WI14', 40),
 (8, 'CSE202',  'Stuff and things', 'FA13', 40),
 (9, 'CSE203',  'Quantum Moonstuff', 'FA13', 40),
-(10, 'CSE204',  'OO3 Prgramming', 'SP13', 40),
-(11, 'CSE205',  'OO4 Prgramming', 'SP13', 40),
-(12, 'CSE11',  'OO2 Prgramming', 'SP13', 40);
+(10, 'CSE204',  'OO3 Prgramming', 'WI14', 40), --random stuff here
+(11, 'CSE205',  'OO4 Programming', 'WI14', 40),
+(12, 'CSE201',  'Stuff and things Advanced', 'WI14', 40),
+(13, 'CSE201',  'Stuff and things Advanced', 'WI14', 40),
+(14, 'CSE202',  'Stuff and things', 'WI14', 40),
+(15, 'CSE202',  'Stuff and things', 'WI14', 40),
+(16, 'CSE203',  'BOOM', 'FA13', 40),
+(17, 'COGS103',  'This is a course', 'FA13', 40),
+(18, 'CSE102',  'YEE BUDDY', 'FA13', 40),
+(19, 'CSE102',  'YEE BUDDY', 'FA13', 40),
+(20, 'CSE100',  'YEE BUDDY', 'FA13', 40),
+(21, 'CSE10',  'OO2 Prgramming', 'SP13', 40),
+(22, 'CSE11',  'OO2 Prgramming', 'SP13', 40);
 
 CREATE TABLE MEETING (
   section_id  INT NOT NULL,
@@ -92,8 +102,25 @@ INSERT INTO MEETING VALUES
 (1, 'F',   '10:00', '11:00', 'N', 'DI', 'WARRENT 1'), 
 (2, 'MWF', '9:00',  '10:00', 'N', 'LE', 'WARRENT 122'), 
 (2, 'W',   '11:00', '12:00', 'N', 'DI', 'WARRENT 12'), 
-(3, 'MWF', '12:00', '1:00',  'N', 'LE', 'WARRENT 12');
-
+(3, 'MWF', '12:00', '13:00',  'N', 'LE', 'WARRENT 12'),
+(4, 'MWF', '12:00', '13:00',  'N', 'LE', 'WARRENT 12'),
+(5, 'MWF', '13:00', '14:00',  'N', 'LE', 'WARRENT 12'),
+(6, 'MWF', '13:00', '14:00',  'N', 'LE', 'WARRENT 12'),
+(7, 'MWF', '14:00', '15:00',  'N', 'LE', 'WARRENT 12'),
+(8, 'MWF', '14:00', '15:00',  'N', 'LE', 'WARRENT 12'),
+(10, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(11, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(12, 'MWF', '17:00', '18:00',  'N', 'LE', 'WARRENT 12'),
+(13, 'MWF', '17:00', '18:00',  'N', 'LE', 'WARRENT 12'),
+(14, 'MWF', '17:00', '18:00',  'N', 'LE', 'WARRENT 12'),
+(15, 'MWF', '9:00', '10:00',  'N', 'LE', 'WARRENT 12'),
+(16, 'MWF', '9:00', '10:00',  'N', 'LE', 'WARRENT 12'),
+(17, 'MWF', '9:00', '10:00',  'N', 'LE', 'WARRENT 12'),
+(18, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(19, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(21, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(22, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12'),
+(2, 'MWF', '16:00', '17:00',  'N', 'LE', 'WARRENT 12');
 
 CREATE TABLE STUDENT(
   SSN INT NOT NULL,

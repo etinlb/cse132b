@@ -171,31 +171,31 @@ CREATE TABLE INSTRUCTOROF (
 CREATE TABLE DEGREE(
   name_of_degree VARCHAR(20) NOT NULL,
   type    VARCHAR(3),
-  avg_gpa NUMERIC(4,3) NOT NULL,
   PRIMARY KEY (name_of_degree)
 );
 
 INSERT INTO DEGREE VALUES
-('Computer Science', 'BS', 3.2),
-('Cognitive Science', 'BS', 3.2),
-('Database Design', 'MS', 3.2);
+('Computer Science', 'BS'),
+('Cognitive Science', 'BS'),
+('Database Design', 'MS');
 
 CREATE TABLE DEGREEREQ (
   name_of_degree VARCHAR(20) NOT NULL,
   category VARCHAR(20) NOT NULL,
   units_req SMALLINT NOT NULL,
+  avg_gpa NUMERIC(4,3) NOT NULL,
   PRIMARY KEY (name_of_degree, category),
   FOREIGN KEY (name_of_degree) REFERENCES DEGREE 
   ON DELETE CASCADE
 );
 
 INSERT INTO DEGREEREQ VALUES
-('Computer Science', 'UD', 12),
-('Computer Science', 'LD', 8),
-('Cognitive Science', 'UD', 8),
-('Cognitive Science', 'LD', 8),
-('Database Design', 'Databases', 12),
-('Database Design', 'Er Schemas', 12);
+('Computer Science', 'UD', 12, 3.2),
+('Computer Science', 'LD', 8, 3.2),
+('Cognitive Science', 'UD', 8, 3.2),
+('Cognitive Science', 'LD', 8, 3.2),
+('Database Design', 'Databases', 12, 3.2),
+('Database Design', 'Er Schemas', 12, 3.2);
 
 
 CREATE TABLE UGSTUDENTDEGREE (
@@ -224,7 +224,7 @@ CREATE TABLE MSPHDSTUDENTDEGREE (
   ON DELETE CASCADE
 );
 INSERT INTO MSPHDSTUDENTDEGREE VALUES
-(3, 'Database Design', 'MasterGuy');
+(3, 'Database Design', 'Database Design');
 
 
 CREATE TABLE THESISCOM (

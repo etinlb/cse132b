@@ -56,7 +56,7 @@
              "Student.student_id = msphdstudentdegree.student_id");
       %>
         <h1>Select a Student And Degree</h1>
-      <form action="unit_report_ms.jsp" action="get">
+      <form action="unit_report_MS.jsp" action="get">
         <select name="student_id">
         <%
             // Iterate over the ResultSet

@@ -267,6 +267,13 @@ CREATE TABLE UGSTUDENTDEGREE (
 INSERT INTO UGSTUDENTDEGREE VALUES
 (1, NULL, 'Computer Science', 'N', 'Sixth'),
 (2, NULL, 'Computer Science', 'N', 'Sixth');
+(4, NULL,  'Computer Science', 'N' 'Sixth'),
+(5, NULL,  'Computer Science', 'N' 'Sixth'),
+(6, NULL,  'Computer Science', 'N' 'Sixth'),
+(7, NULL,  'Computer Science', 'N' 'Sixth'),
+(8, NULL,  'Computer Science', 'N' 'Sixth'),
+(9, NULL,  'Computer Science', 'N' 'Sixth');
+
 
 CREATE TABLE MSPHDSTUDENTDEGREE (
   student_id INT NOT NULL,
@@ -278,7 +285,10 @@ CREATE TABLE MSPHDSTUDENTDEGREE (
   ON DELETE CASCADE
 );
 INSERT INTO MSPHDSTUDENTDEGREE VALUES
-(3, 'Database Design', 'Database Design');
+(3, 'Database Design', 'Databases'),
+(10,'Database Design', 'Er Schemas'),
+(11,'Database Design', 'Databases'),
+(12,'Database Design', 'Databases');
 
 
 CREATE TABLE THESISCOM (

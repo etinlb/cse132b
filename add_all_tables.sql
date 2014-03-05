@@ -8,18 +8,18 @@ CREATE TABLE COURSE(
 );
 
 INSERT INTO COURSE VALUES
-('CSE100', 'P/NP', 'Y', 4, 4, 'CSE'),
-('CSE101', 'LTTR', 'Y', 2, 4, 'CSE'),
-('CSE102', 'LTTR', 'Y', 1, 4, 'CSE'),
+('CSE100', 'P/NP', 'Y', 4, 4, 'CSE'),  
+('CSE101', 'LTTR', 'Y', 2, 4, 'CSE'),  
+('CSE102', 'LTTR', 'Y', 1, 4, 'CSE'),  
 ('COGS103', 'LTTR', 'Y', 4, 4, 'COGS'),
-('CSE10', 'P/NP', 'Y', 2, 6, 'CSE'),
-('CSE11',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE200',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE201',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE202',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE203',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE204',  'LTTR', 'Y', 4, 4, 'CSE'),
-('CSE205',  'LTTR', 'Y', 4, 4, 'CSE');
+('CSE10', 'P/NP', 'Y', 2, 6, 'CSE'),   
+('CSE11',  'LTTR', 'Y', 4, 4, 'CSE'),  
+('CSE200',  'LTTR', 'Y', 4, 4, 'CSE'), 
+('CSE201',  'LTTR', 'Y', 4, 4, 'CSE'), 
+('CSE202',  'LTTR', 'Y', 4, 4, 'CSE'), 
+('CSE203',  'LTTR', 'Y', 4, 4, 'CSE'), 
+('CSE204',  'LTTR', 'Y', 4, 4, 'CSE'), 
+('CSE205',  'LTTR', 'Y', 4, 4, 'CSE'); 
 
 
 CREATE TABLE QUARTERPERIODS (
@@ -76,8 +76,6 @@ INSERT INTO CLASS VALUES
 (11, 'CSE205',  'OO4 Prgramming', 'SP13', 40),
 (12, 'CSE11',  'OO2 Prgramming', 'SP13', 40);
 
-
-
 CREATE TABLE MEETING (
   section_id  INT NOT NULL,
   days_of_week  VARCHAR(10) NOT NULL,
@@ -106,10 +104,20 @@ CREATE TABLE STUDENT(
   RESIDENCY VARCHAR(10) NOT NULL,
   TYPE VARCHAR(10) NOT NULL
 );
+
 INSERT INTO STUDENT VALUES
-(12, 1, 'Erik', 'Dude', 'Parreira', 'Yes', 'UG'),
-(13, 2, 'Kenny', 'Dude', 'Torres', 'Yes', 'UG'),
-(14, 3, 'John', 'Dude', 'John', 'Yes', 'UG');
+(112, 1, 'Erik', 'Dude', 'Parreira', 'Yes', 'UG'),
+(131, 2, 'Kenny', 'Dude', 'Torres', 'Yes', 'UG'),
+(141, 3, 'John', 'Dude', 'John', 'Yes', 'UG'),
+(123, 4, 'Merik', NULL, 'Karreira', 'Yes', 'UG'),
+(134, 5, 'Jenny', NULL, 'Flores', 'No', 'UG'),
+(242, 6, 'Ron', NULL, 'Vento', 'Yes', 'UG'),
+(223, 7, 'Tetrik', NULL, 'Potter', 'No', 'UG'),
+(331, 8, 'Fey', NULL, 'Jordan', 'Yes', 'UG'),
+(441, 9, 'Alex', NULL, 'Kiss', 'Yes', 'UG'),
+(223, 10, 'Kendrik', NULL, 'Lamar', 'Yes', 'MS'),
+(331, 11, 'Robert', NULL, 'Son', 'Yes', 'PhD'),
+(441, 12, 'James', NULL, 'Bond', 'No', 'PhD');
 
 
 
@@ -147,7 +155,19 @@ INSERT INTO STUDENTCOURSEDATA VALUES
 (8, 3, 'LTTR', 'A', 'enrolled', 4),
 (9, 3, 'LTTR', 'A', 'enrolled', 4),
 (10, 3, 'LTTR', 'B', 'enrolled', 4),
-(12, 3, 'LTTR', 'B', 'enrolled', 4);
+(12, 3, 'LTTR', 'B', 'enrolled', 4),
+(1, 3, 'P/NP', 'WIP', 'enrolled', 4),
+(2, 4, 'LTTR', 'WIP', 'enrolled', 4),
+(3, 5, 'LTTR', 'WIP', 'enrolled', 4),
+(4, 6, 'P/NP', 'A', 'comp', 4),
+(5, 7, 'P/NP', 'B', 'comp', 4),
+(1, 8, 'P/NP', 'WIP', 'enrolled', 4),
+(6, 9, 'LTTR', 'WIP', 'enrolled', 4),
+(7, 10, 'LTTR', 'C', 'comp', 4),
+(8, 11, 'LTTR', 'A', 'comp', 4),
+(9, 12, 'LTTR', 'A', 'comp', 4),
+(10, 11, 'LTTR', 'B', 'comp', 4),
+(12, 4, 'LTTR', 'B', 'comp', 4);
 
 
 CREATE TABLE FACULTY(
@@ -159,6 +179,16 @@ CREATE TABLE FACULTY(
   PRIMARY KEY (fac_fname, fac_lname)
 );
 
+INSERT INTO FACULTY VALUES
+('ALIN', NULL, 'DEUTSCH', 'PROFESSOR', 'CSE'),
+('RICK', NULL, 'ORD', 'PROFESSOR', 'CSE'),
+('JOSEPH', NULL, 'PASQUALE', 'PROFESSOR', 'CSE'),
+('ERIC', NULL, 'PARRIER', 'PROFESSOR', 'CSE'),
+('NAT', NULL, 'TOOLY', 'PROFESSOR', 'COGS' ),
+('ANDREAS', NULL, 'ADJIOSK', 'PROFESSOR', 'COGS' ),
+('KEN', NULL, 'FUNCTION', 'PROFESSOR', 'MATH' ),
+('BRIAN', 'CAR', 'MICHAEL', 'PROFESSOR', 'MATH' );
+
 CREATE TABLE INSTRUCTOROF (
   fac_fname   VARCHAR(20) NOT NULL,
   fac_lname   VARCHAR(20) NOT NULL,
@@ -167,6 +197,30 @@ CREATE TABLE INSTRUCTOROF (
   FOREIGN KEY (section_id) REFERENCES CLASS,
   FOREIGN KEY (fac_fname, fac_lname) REFERENCES FACULTY  
 );
+
+INSERT INTO INSTRUCTOROF VALUES
+('ALIN',  'DEUTSCH', 1 ),
+('RICK',  'ORD', 2),
+('RICK',  'ORD', 5),
+('ALIN', 	'DEUTSCH', 3),
+('RICK', 	'ORD', 1),
+('JOSEPH','PASQUALE', 4),
+('ERIC', 	'PARRIER', 5),
+('NAT', 	'TOOLY', 6),
+('ANDREAS','ADJIOSK', 7),
+('KEN', 	'FUNCTION', 8),
+('BRIAN', 'MICHAEL', 9), 
+('ALIN',  'DEUTSCH', 10),
+('RICK',  'ORD', 12),
+('RICK',  'ORD', 11),
+('ALIN',  'DEUTSCH', 8),
+('RICK',  'ORD', 7),
+('JOSEPH','PASQUALE', 6),
+('ERIC', 	'PARRIER', 12),
+('NAT', 	'TOOLY', 4),
+('ANDREAS','ADJIOSK', 3),
+('KEN', 	'FUNCTION', 7),
+('BRIAN', 'MICHAEL', 10);
 
 CREATE TABLE DEGREE(
   name_of_degree VARCHAR(20) NOT NULL,
@@ -211,8 +265,8 @@ CREATE TABLE UGSTUDENTDEGREE (
 );
 
 INSERT INTO UGSTUDENTDEGREE VALUES
-(1, '', 'Computer Science', 'N', 'Sixth'),
-(2, '', 'Computer Science', 'N', 'Sixth');
+(1, NULL, 'Computer Science', 'N', 'Sixth'),
+(2, NULL, 'Computer Science', 'N', 'Sixth');
 
 CREATE TABLE MSPHDSTUDENTDEGREE (
   student_id INT NOT NULL,
@@ -269,10 +323,11 @@ INSERT INTO CLASSCATEGORY VALUES
 ('CSE205',  'Databases', 'Database Design');
 
 
-create table GRADE_CONVERSION
+CREATE TABLE GRADE_CONVERSION
 ( LETTER_GRADE CHAR(2) NOT NULL,
 NUMBER_GRADE DECIMAL(2,1)
 );
+
 insert into grade_conversion values('A+', 4.3);
 insert into grade_conversion values('A', 4);
 insert into grade_conversion values('A-', 3.7);

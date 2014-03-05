@@ -266,13 +266,13 @@ CREATE TABLE UGSTUDENTDEGREE (
 
 INSERT INTO UGSTUDENTDEGREE VALUES
 (1, NULL, 'Computer Science', 'N', 'Sixth'),
-(2, NULL, 'Computer Science', 'N', 'Sixth');
-(4, NULL,  'Computer Science', 'N' 'Sixth'),
-(5, NULL,  'Computer Science', 'N' 'Sixth'),
-(6, NULL,  'Computer Science', 'N' 'Sixth'),
-(7, NULL,  'Computer Science', 'N' 'Sixth'),
-(8, NULL,  'Computer Science', 'N' 'Sixth'),
-(9, NULL,  'Computer Science', 'N' 'Sixth');
+(2, NULL, 'Computer Science', 'N', 'Sixth'), 
+(4, NULL,  'Computer Science', 'N', 'Sixth'),
+(5, NULL,  'Computer Science', 'N', 'Sixth'),
+(6, NULL,  'Computer Science', 'N', 'Sixth'),
+(7, NULL,  'Computer Science', 'N', 'Sixth'),
+(8, NULL,  'Computer Science', 'N', 'Sixth'),
+(9, NULL,  'Computer Science', 'N', 'Sixth');
 
 
 CREATE TABLE MSPHDSTUDENTDEGREE (

@@ -155,7 +155,19 @@ INSERT INTO STUDENTCOURSEDATA VALUES
 (8, 3, 'LTTR', 'A', 'enrolled', 4),
 (9, 3, 'LTTR', 'A', 'enrolled', 4),
 (10, 3, 'LTTR', 'B', 'enrolled', 4),
-(12, 3, 'LTTR', 'B', 'enrolled', 4);
+(12, 3, 'LTTR', 'B', 'enrolled', 4),
+(1, 3, 'P/NP', 'WIP', 'enrolled', 4),
+(2, 4, 'LTTR', 'WIP', 'enrolled', 4),
+(3, 5, 'LTTR', 'WIP', 'enrolled', 4),
+(4, 6, 'P/NP', 'A', 'comp', 4),
+(5, 7, 'P/NP', 'B', 'comp', 4),
+(1, 8, 'P/NP', 'WIP', 'enrolled', 4),
+(6, 9, 'LTTR', 'WIP', 'enrolled', 4),
+(7, 10, 'LTTR', 'C', 'comp', 4),
+(8, 11, 'LTTR', 'A', 'comp', 4),
+(9, 12, 'LTTR', 'A', 'comp', 4),
+(10, 11, 'LTTR', 'B', 'comp', 4),
+(12, 4, 'LTTR', 'B', 'comp', 4);
 
 
 CREATE TABLE FACULTY(

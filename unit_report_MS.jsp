@@ -248,15 +248,18 @@
               }
             }
             %>
-            <tr>
             <%
             for(String key : cat_classes.keySet()){
               %>
+              <tr>
               <th><%=key%></th>
+              </tr>
               <%
               for(String cat : cat_classes.get(key)){
                 %>
+                <tr>
                 <td><%=cat%></td>
+                </tr>
                 <%
               }
             }

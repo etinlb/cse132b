@@ -252,13 +252,14 @@ INSERT INTO INSTRUCTOROF VALUES
 CREATE TABLE DEGREE(
   name_of_degree VARCHAR(20) NOT NULL,
   type    VARCHAR(3),
+  total_units INT NOT NULL,
   PRIMARY KEY (name_of_degree)
 );
 
 INSERT INTO DEGREE VALUES
-('Computer Science', 'BS'),
-('Cognitive Science', 'BS'),
-('Database Design', 'MS');
+('Computer Science', 'BS', 30),
+('Cognitive Science','BS', 30),
+('Database Design',  'MS', 30);
 
 CREATE TABLE DEGREEREQ (
   name_of_degree VARCHAR(20) NOT NULL,

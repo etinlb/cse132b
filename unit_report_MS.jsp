@@ -158,7 +158,7 @@
               if(diff < 0){
                 diff = 0;
               }
-              completed_units.put(units_set.getString("category"), diff);
+              completed_units.put(units_set.getString("category"), comp_units);
               completed_gpa.put(units_set.getString("category"), gpa);
             }  
             %>
@@ -194,8 +194,10 @@
                   System.out.println("2");
 
                 }else{
+                  System.out.println("Completed " + completed_units.get(key));
+                  System.out.println("NEEDED " + categories_units.get(key));
                   diff = categories_units.get(key) - completed_units.get(key);
-                  display = "Need " +diff+ " units. ";
+                  display = "Needs " +diff+ " units. ";
                                   System.out.println("3");
 
                 }

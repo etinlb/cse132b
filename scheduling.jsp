@@ -12,6 +12,10 @@
       <%-- Set the scripting language to Java and --%>
       <%-- Import the java.sql package --%>
       <%@ page language="java" import="java.sql.*" %>
+      <%@ page language="java" import="java.util.Calendar" %>
+      <%@ page language="java" import="java.util.Hashtable" %>
+      <%@ page language="java" import="java.util.*"%>
+      <%@ page language="java" import="java.util.LinkedHashMap"%>
   
       <%-- -------- Open Connection Code -------- --%>
       <%
@@ -103,7 +107,8 @@
           </tr>
           <tr>
             <form action="scheduling.jsp" method="get">
-              <input type="hidden" value="get_it" name="action">
+              <input type="hidden" value="get_it" name="action"> 
+              <input type="hidden" value="<%=request.getParameter("section_id")%>" name="section_id">
               <th><input value="" name="s_month" size="15"></th>
               <th><input value="" name="s_day" size="15"></th>
               <th><input value="" name="e_month" size="15"></th>
@@ -116,19 +121,115 @@
 
 				if ( action != null && action.equals("get_it") ) 
 				{
-				/******************* MASS CODE HERE **********************/
+          final int start_month = Integer.parseInt(request.getParameter("s_month")) - 1;
+          final int end_month = Integer.parseInt(request.getParameter("e_month")) - 1;
+          final int start_day = Integer.parseInt(request.getParameter("s_day"));
+          final int end_day = Integer.parseInt(request.getParameter("e_day"));
+          String query = "SELECT DISTINCT days_of_week, start_time, end_time FROM Studentcoursedata AS sd " + 
+           "JOIN Meeting AS m ON sd.section_id=m.section_id " + 
+           "JOIN (SELECT DISTINCT sd.student_id FROM Studentcoursedata AS sd " + 
+           "JOIN Meeting AS m ON m.section_id=sd.section_id " + 
+           "WHERE m.section_id="+request.getParameter("section_id")+") AS enr_stu ON enr_stu.student_id=sd.student_id";
+
+           System.out.println(query);
+
+          ResultSet taken_times = statement.executeQuery(query);
+
+           //scheduling java code.
+          Hashtable<Integer,String > day_lookup = new Hashtable<Integer, String>();
+          day_lookup.put(2, "M");
+          day_lookup.put(3, "Tu");
+          day_lookup.put(4, "W");
+          day_lookup.put(5, "Th");
+          day_lookup.put(6, "F");
+
+          ArrayList<Integer> schedule_days = new ArrayList<Integer>();
+          Calendar calendar = new GregorianCalendar() {{
+              set(Calendar.YEAR, 2014);
+              set(Calendar.MONTH, start_month);
+              set(Calendar.DATE, start_day);
+          }}; 
+
+          if(start_month == end_month){
+            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+            while(calendar.get(Calendar.DATE) != end_day){
+                   calendar.add(Calendar.DATE, 1);  
+              if ( calendar.get((Integer)Calendar.DAY_OF_WEEK) == 1 || 
+                   calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
+                continue;
+            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+            System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
+            }
+          }else{
+            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+            while ( calendar.get(Calendar.MONTH) <= end_month && calendar.get(Calendar.DATE) != end_day) {
+                  calendar.add(Calendar.DATE, 1);   
+              if ( calendar.get((Integer)Calendar.DAY_OF_WEEK) == 1 || 
+                   calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
+                  continue;
+                schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+                System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
+             }
+          }
+          
+          //Hashtable<String, String> hour_day_hash = new Hashtable<String, String>();
+          LinkedHashMap<String,String> hour_day_hash = new LinkedHashMap<String,String>();
+
+          System.out.println("sched_days = " + schedule_days.toString());
+          
+          for(int i=0; i<schedule_days.size(); i++){
+            String day = day_lookup.get(schedule_days.get(i));
+            System.out.println("day = " + day );
+            System.out.println("sched_day = " + schedule_days.get(i));
+            for(int x=8; x<=20; x++){
+                  hour_day_hash.put(day + Integer.toString(x), "y");
+            }
+          }
+
+          for(String key : hour_day_hash.keySet()){
+            System.out.println(key);
+                System.out.println(hour_day_hash.get(key));
+          }
+          while(taken_times.next()){
+            String days = taken_times.getString("days_of_week");
+            //System.out.println(days);
+            String[] camelCaseWords = days.split("(?=[A-Z])");
+            String start_times = taken_times.getString("start_time");
+            String hour;
+            if(start_times.length() == 3){
+              hour = Character.toString(start_times.charAt(0));
+            }else{
+              hour = Character.toString(start_times.charAt(0)) + Character.toString(start_times.charAt(1));
+            }
+            System.out.println(hour);
+            for(int i=0; i<camelCaseWords.length;i++){
+              if(!camelCaseWords[i].equals("")){
+                System.out.println("at index" + i + "=" + camelCaseWords[i]+"|" + " hour = "+ taken_times.getString("start_time"));
+                hour_day_hash.put(camelCaseWords[i] + hour, "n");
+              }
+            }
+          }
+          for(String key : hour_day_hash.keySet()){
+            if( hour_day_hash.get(key).equals("y")){
+              System.out.println(key + hour_day_hash.get(key));
+            }
+          }
+        }
+
 
       %>
      
 			   <h1>Available Time Slots:</h1>
+
 			
       <%
 
 
 				/****************** END OF MASS CODE ********************/			
-      	} 
+      	 
 			   // Close the Statement
           statement.close();
+          System.out.println("============================================================================");
   
           // Close the Connection
           conn.close();

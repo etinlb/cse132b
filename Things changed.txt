@@ -13,3 +13,10 @@ WHERE sd.student_id=1 AND cs.qtr_yr='WI14') AS taken
 JOIN (SELECT cs.*, days_of_week, start_time, end_time FROM Class as cs 
 JOIN Meeting as mt ON cs.section_id=mt.section_id
 WHERE cs.qtr_yr='WI14') AS cs ON cs.section_id<>taken.section_id AND ((cs.start_time<=taken.start_time AND cs.end_time>taken.start_time)  OR (cs.start_time<taken.end_time AND cs.end_time >taken.end_time)) 
+
+
+SELECT DISTINCT days_of_week, start_time, end_time FROM Studentcoursedata AS sd
+JOIN Meeting AS m ON sd.section_id=m.section_id
+JOIN (SELECT DISTINCT sd.student_id FROM Studentcoursedata AS sd
+JOIN Meeting AS m ON m.section_id=sd.section_id
+WHERE m.section_id=1) AS enr_stu ON enr_stu.student_id=sd.student_id

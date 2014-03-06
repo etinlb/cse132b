@@ -52,14 +52,14 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement course_entry_state = conn.prepareStatement(
-              "INSERT INTO Course VALUES (?, ?, ?, ?, ?)");
+              "INSERT INTO Course VALUES (?, ?, ?, ?, ?, ?)");
 
-            course_entry_state.setInt(
-              1, Integer.parseInt(request.getParameter("COURSE_ID")));
+            course_entry_state.setString(1, request.getParameter("COURSE_ID"));
             course_entry_state.setString(2, request.getParameter("GRADEOPT"));
             course_entry_state.setString(3, request.getParameter("LABWORK"));
-            course_entry_state.setString(4, request.getParameter("UNITS"));
-            course_entry_state.setString(5, request.getParameter("DEPARTMENT"));
+            course_entry_state.setInt(4, Integer.parseInt(request.getParameter("START_UNITS")));
+            course_entry_state.setInt(5, Integer.parseInt(request.getParameter("END_UNITS")));
+            course_entry_state.setString(6, request.getParameter("DEPARTMENT"));
             int rowCount = course_entry_state.executeUpdate();
 
             // Commit transaction
@@ -85,17 +85,19 @@
             <th>COURSE ID</th>
             <th>GRADEOPT</th>
             <th>LABWORK</th>
-            <th>UNIT RANGE</th>
+            <th>START UNITS</th>
+            <th>END	UNITS</th>
             <th>DEPARTMENT</th>
             <th>ACTION</th>
           </tr>
           <tr>
             <form action="course_entry.jsp" method="get">
               <input type="hidden" value="insert" name="action">
-              <th><input value="" name="COURSE_ID" size="10"></th>
-              <th><input value="" name="GRADEOPT" size="10"></th>
+              <th><input value="" name="COURSE_ID" size="15"></th>
+              <th><input value="" name="GRADEOPT" size="15"></th>
               <th><input value="" name="LABWORK" size="15"></th>
-              <th><input value="" name="UNITS" size="15"></th>
+              <th><input value="" name="START_UNITS" size="15"></th>
+              <th><input value="" name="END_UNITS" size="15"></th>
               <th><input value="" name="DEPARTMENT" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
@@ -114,18 +116,22 @@
               <input type="hidden" value="update" name="action">
               <td>
                 <input value="<%= course.getString("course_id") %>" 
-                  name="course_id" size="10">
+                  name="course_id" size="15">
               </td>
               <td>
                 <input value="<%= course.getString("grade_opt") %>" 
-                  name="grade_opt" size="10">
+                  name="grade_opt" size="15">
               </td>
               <td>
                 <input value="<%= course.getString("labwork") %>"
                   name="labwork" size="15">
               </td>
               <td>
-                <input value="<%= course.getString("units") %>" 
+                <input value="<%= course.getInt("start_units") %>" 
+                  name="units" size="15">
+              </td>
+              <td>
+                <input value="<%= course.getInt("end_units") %>" 
                   name="units" size="15">
               </td>
               <td>

@@ -54,8 +54,8 @@
             PreparedStatement pstmt = conn.prepareStatement(
               "INSERT INTO PREREQ VALUES (?, ?)");
 
-            pstmt.setInt(1, Integer.parseInt(request.getParameter("PRE")));
-            pstmt.setInt(2, Integer.parseInt(request.getParameter("ID")));
+            pstmt.setString(1, request.getParameter("PRE"));
+            pstmt.setString(2, request.getParameter("ID"));
 
             int rowCount = pstmt.executeUpdate();
 
@@ -92,57 +92,7 @@
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
-            <%-- -------- UPDATE Code -------- --%>
-      <%
-          // Check if an update is requested
-          if (action != null && action.equals("update")) {
 
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // UPDATE the student attributes in the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "UPDATE Student SET student_id = ?, FIRSTNAME = ?, " +
-              "MIDDLENAME = ?, LASTNAME = ?, RESIDENCY = ? WHERE SSN = ?");
-
-            pstmt.setString(1, request.getParameter("student_id"));
-            pstmt.setString(2, request.getParameter("FIRSTNAME"));
-            pstmt.setString(3, request.getParameter("MIDDLENAME"));
-            pstmt.setString(4, request.getParameter("LASTNAME"));
-            pstmt.setString(5, request.getParameter("RESIDENCY"));
-            pstmt.setInt(
-              6, Integer.parseInt(request.getParameter("SSN")));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-            conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
-
-      <%-- -------- DELETE Code -------- --%>
-      <%
-          // Check if a delete is requested
-          if (action != null && action.equals("delete")) {
-
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // DELETE the student FROM the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM Student WHERE SSN = ?");
-
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("SSN")));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-             conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
 
       <%-- -------- Iteration Code -------- --%>
       <%
@@ -158,7 +108,7 @@
 
               <%-- Get the PRE --%>
               <td>
-                <input value="<%= rs.getInt("pre_course_id") %>" 
+                <input value="<%= rs.getString("pre_course_id") %>" 
                   name="PRE" size="15">
               </td>
 
@@ -168,20 +118,11 @@
                   name="ID" size="15">
               </td>
   
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Update">
-              </td>
             </form>
             <form action="add_prereq.jsp" method="get">
-              <input type="hidden" value="delete" name="action">
               <input type="hidden" 
                 value="<%= rs.getString("pre_course_id") %>" name="PRE">
                 <input type="hidden" value="<%= rs.getString("course_id") %>" name="ID">
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Delete">
-              </td>
             </form>
 
           </tr>

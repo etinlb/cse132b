@@ -194,7 +194,8 @@ INSERT INTO STUDENTCOURSEDATA VALUES
 (8, 11, 'LTTR', 'A', 'comp', 4),
 (9, 12, 'LTTR', 'A', 'comp', 4),
 (10, 11, 'LTTR', 'B', 'comp', 4),
-(12, 4, 'LTTR', 'B', 'comp', 4);
+(12, 4, 'LTTR', 'B', 'comp', 4),
+(22, 1, 'LTTR', 'C', 'comp', 4);
 
 
 CREATE TABLE FACULTY(

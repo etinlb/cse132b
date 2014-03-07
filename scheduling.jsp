@@ -266,7 +266,7 @@
             if( hour_day_hash.get(key).equals("y")){
               %>
               <tr>
-                <td><%=key + " " + hour_day_hash.get(key)%></td>
+                <td><%=key%></td>
               </tr>
               <%
               System.out.println(key + " " + hour_day_hash.get(key));

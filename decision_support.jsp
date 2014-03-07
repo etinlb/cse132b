@@ -73,14 +73,60 @@
           // the student attributes FROM the Student table.
 					String courseID = "initial";
 					if ( action.equals("Course Selected") )
-          	courseID = request.getParameter("course_id");
+					{
+					 String student2 = 
+              " SELECT c.course_id, c.c_title, " + 
+							" sum(case when grade LIKE 'A%' then 1 else 0 end) Acount, " +
+              " sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount, " +
+							" sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount, " +
+              " sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount, " +
+              " sum(g.number_grade)/count(*) AS avg_gpa " +
+              " FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id " +
+              " LEFT JOIN studentcoursedata as s on i.section_id = s.section_id  " +
+              " LEFT JOIN grade_conversion as g on s.grade = g.letter_grade " +
+							" WHERE c.course_id ='" + request.getParameter("course_id") + "'" +
+							" GROUP BY c.course_id, c.c_title";
+						ResultSet course_set = statement.executeQuery(student2); 
+            courseID = request.getParameter("course_id");
+      		%>
+    				<table border="1">
+                <tr>
+                  <th>COURSE ID</th>
+                  <th>Course Title</th>
+									<th> A's </th>
+									<th> B's </th>
+									<th> C's </th>
+									<th> D's </th>
+                  <th>Avg GPA</th>
+                </tr> 
+          <%
+      			while(course_set.next() ) 
+						{
+       		%>
+                <tr>
+                  <form action="decision_support.jsp" method="get">
+                    <input type="hidden" value="insert" name="action">
+                    <th><%= course_set.getString("course_id") %></th>
+                    <th><%= course_set.getString("c_title") %></th>
+                    <th><%= course_set.getInt("acount") %></th>
+                    <th><%= course_set.getInt("bcount") %></th>
+                    <th><%= course_set.getInt("ccount") %></th>
+                    <th><%= course_set.getInt("dcount") %></th>
+                    <th><%= course_set.getDouble("avg_gpa") %></th>
+                  </form>
+                </tr>
+          <%
+            }
+
+					}
+
 					if ( action.equals("Course Selected") || action.equals("Selected Professor") )
 /*START*/ {
 						ResultSet rs2 = statement.executeQuery
-            ("SELECT c.course_id, i.fac_fname, i.fac_lname" +
+            ("SELECT DISTINCT c.course_id, i.fac_fname, i.fac_lname" +
 						" FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id" +
 						" WHERE c.course_id='" + courseID +"'"); 
-						System.out.println( courseID );
+						System.out.println( "course id print" + courseID );
       %>
         <h1>Select a Professor</h1>
       <form action="decision_support.jsp" action="get">
@@ -103,7 +149,64 @@
       </form>
       <%-- -------- SELECT Statement Code -------- --%>
       <%
-
+					if ( action.equals("Selected Professor") )
+					{
+						String delim = "[,]";
+						String [] data = request.getParameter("prof").split(delim);
+						String pass_on = request.getParameter("prof");
+						System.out.println( data[0] );
+						System.out.println( data[1] );
+						System.out.println( data[2] );
+            System.out.println("L::LSDKFJ:LSKDFJLSDJFL:KSDJFL:KSDJFL");
+					 String student3 = 
+              " SELECT c.course_id, c.c_title, i.fac_lname, i.fac_fname," + 
+							" sum(case when grade LIKE 'A%' then 1 else 0 end) Acount, " +
+              " sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount, " +
+							" sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount, " +
+              " sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount, " +
+              " sum(g.number_grade)/count(*) AS avg_gpa " +
+              " FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id " +
+              " LEFT JOIN studentcoursedata as s on i.section_id = s.section_id  " +
+              " LEFT JOIN grade_conversion as g on s.grade = g.letter_grade " +
+							" WHERE c.course_id ='" + data[2] + "' AND i.fac_lname='" + data[0] +"' AND " +
+							" i.fac_fname ='" + data[1] + "'" +
+							" GROUP BY c.course_id, c.c_title, i.fac_lname, i.fac_fname";
+						ResultSet instr_set= statement.executeQuery(student3); 
+						System.out.println( "EXECUTED" );
+      		%>
+    				<table border="1">
+                <tr>
+                  <th>COURSE ID</th>
+                  <th>Instructor Fname</th>
+                  <th>Instructor Lname</th>
+                  <th>Course Title</th>
+									<th> A's </th>
+									<th> B's </th>
+									<th> C's </th>
+									<th> D's </th>
+                  <th>Avg GPA</th>
+                </tr> 
+          <%
+      			while(instr_set.next() ) 
+						{
+       		%>
+                <tr>
+                  <form action="decision_support.jsp" method="get">
+                    <input type="hidden" value="insert" name="action">
+                    <th><%= instr_set.getString("course_id") %></th>
+                    <th><%= instr_set.getString("fac_fname") %></th>
+                    <th><%= instr_set.getString("fac_lname") %></th>
+                    <th><%= instr_set.getString("c_title") %></th>
+                    <th><%= instr_set.getInt("acount") %></th>
+                    <th><%= instr_set.getInt("bcount") %></th>
+                    <th><%= instr_set.getInt("ccount") %></th>
+                    <th><%= instr_set.getInt("dcount") %></th>
+                    <th><%= instr_set.getDouble("avg_gpa") %></th>
+                  </form>
+                </tr>
+          <%
+            }
+					}
 					if ( action.equals("Selected Professor") || action.equals("QTR Selected") )
 /*START*/ {
 						String delim = "[,]";

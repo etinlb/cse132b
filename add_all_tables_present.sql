@@ -124,7 +124,16 @@ CREATE TABLE STUDENTCOURSEDATA(
   FOREIGN KEY (section_id) REFERENCES CLASS,
   FOREIGN KEY (student_id) REFERENCES STUDENT
 );
-
+INSERT INTO STUDENTCOURSEDATA VALUES
+(81, 1, 'LTRR', 'A',     'comp'2),
+(1012, 1, 'LTRR', 'WIP', 'enrolled'4),
+(1012, 3, 'LTRR', 'WIP', 'enrolled'4),
+(1231, 1, 'LTRR', 'WIP', 'enrolled'2),
+(1322, 1, 'LTRR', 'B',   'comp'4),
+(1322, 3, 'LTRR', 'A',   'comp'4),
+(1323, 2, 'LTRR', 'C',   'comp'4),
+(1351, 1, 'LTRR', 'C',   'comp'4),
+(1351, 3, 'LTRR', 'B+',  'comp'4);
 
 CREATE TABLE FACULTY(
   fac_fname   VARCHAR(20) NOT NULL,

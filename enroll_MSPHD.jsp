@@ -78,16 +78,16 @@
       <!-- Add an HTML table header row to format the results -->
         <table border="1">
           <tr>
-            <th>STUDENT_ID</th>
-            <th>NAME_OF_DEGREE</th>
+            <th>STUDENT ID</th>
+            <th>DEGREE NAME</th>
             <th>CONCENTRATION</th>
             <th>ACTION</th>
           </tr>
           <tr>
             <form action="enroll_MSPHD.jsp" method="get">
               <input type="hidden" value="insert" name="action">
-              <th><input value="" name="STUDENT_ID" size="10"></th>
-              <th><input value="" name="NAME_OF_DEGREE" size="10"></th>
+              <th><input value="" name="STUDENT_ID" size="15"></th>
+              <th><input value="" name="NAME_OF_DEGREE" size="20"></th>
               <th><input value="" name="CONCENTRATION" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
@@ -107,13 +107,13 @@
 
               <td>
                 <input value="<%= rs.getString("student_id") %>" 
-                  name="STUDENT_ID" size="10">
+                  name="STUDENT_ID" size="15">
               </td>
   
               <%-- Get the student_id --%>
               <td>
                 <input value="<%= rs.getString("name_of_degree") %>" 
-                  name="NAME_OF_DEGREE" size="10">
+                  name="NAME_OF_DEGREE" size="20">
               </td>
               <td>
                 <input value="<%= rs.getString("concentration") %>"

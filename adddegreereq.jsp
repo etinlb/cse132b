@@ -52,11 +52,12 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
-              "INSERT INTO DEGREEREQ VALUES (?, ?, ?)");
+              "INSERT INTO DEGREEREQ VALUES (?, ?, ?, ?)");
 
             pstmt.setString(1, request.getParameter("NAME"));
             pstmt.setString(2, request.getParameter("CAT"));
             pstmt.setInt(3, Integer.parseInt(request.getParameter("UREQ")));
+            pstmt.setDouble(4, Double.parseDouble(request.getParameter("AVG_GPA")));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -82,41 +83,21 @@
           <tr>
             <th>NAME OF DEGREE</th>
             <th>CATEGORY</th>
-            <th>UNITS REQUIRED</th>
-            <th>ACTION</th>
+            <th>UNITS REQ</th>
+						<th>AVG GPA</th>
+            <th>Action</th>
           </tr>
           <tr>
             <form action="adddegreereq.jsp" method="get">
               <input type="hidden" value="insert" name="action">
-              <th><input value="" name="NAME" size="15"></th>
+              <th><input value="" name="NAME" size="25"></th>
               <th><input value="" name="CAT" size="15"></th>
               <th><input value="" name="UREQ" size="15"></th>
+              <th><input value="" name="AVG_GPA" size="15"></th>
               <th><input type="submit" value="Insert"></th>
             </form>
           </tr>
 
-      <%-- -------- DELETE Code -------- --%>
-      <%
-          // Check if a delete is requested
-          if (action != null && action.equals("delete")) {
-
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // DELETE the student FROM the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM Degreereq WHERE name_of_degree = ? and category = ?");
-
-            pstmt.setString(1, request.getParameter("NAME"));
-            pstmt.setString(2, request.getParameter("TYPE"));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-             conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
       <%-- -------- Iteration Code -------- --%>
       <%
           // Iterate over the ResultSet
@@ -132,7 +113,7 @@
               <%-- Get the NAME --%>
               <td>
                 <input value="<%= rs.getString("name_of_degree") %>" 
-                  name="NAME" size="15">
+                  name="NAME" size="25">
               </td>
   
               <%-- Get the TYPE --%>
@@ -144,23 +125,12 @@
               <%-- Get the UNITS REQ --%>
               <td>
                 <input value="<%= rs.getInt("units_req") %>" 
-                  name="UREQ" size="10">
+                  name="UREQ" size="15">
               </td>
   
-              <%-- Button --%>
               <td>
-                <input type="submit" value="Update">
-              </td>
-            </form>
-            <form action="adddegreereq.jsp" method="get">
-              <input type="hidden" value="delete" name="action">
-              <input type="hidden" 
-                value="<%= rs.getString("name_of_degree") %>" name="NAME">
-              <input type="hidden" 
-                value="<%= rs.getString("category") %>" name="TYPE">
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Delete">
+                <input value="<%= rs.getDouble("avg_gpa") %>" 
+                  name="AVG_GPA" size="15">
               </td>
             </form>
           </tr>

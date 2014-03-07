@@ -108,10 +108,14 @@ CREATE TABLE REVIEW (
   month      INT NOT NULL,
   day        INT NOT NULL,
   hour       INT NOT NULL,
+  day_week   VARCHAR(2),
   FOREIGN KEY (section_id) REFERENCES CLASS
-)
--- INSERT INTO REVIEW VALUES
--- (2, )
+);
+
+INSERT INTO REVIEW VALUES
+(2, 4, 15, 10, "Tu"),
+(2, 4, 15, 15, "Tu"),
+(11, 4, 15, 15, "Tu");
 
 INSERT INTO MEETING VALUES
 (1, 'MWF', 900,  1000, 'N', 'LE', 'WARRENT 12'), 

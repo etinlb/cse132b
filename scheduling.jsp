@@ -157,10 +157,15 @@
               set(Calendar.MONTH, start_month);
               set(Calendar.DATE, start_day);
           }}; 
-          schedule_days.add(  
-                        Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
-                        Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
-                        Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
+
+          if ( calendar.get((Integer)Calendar.DAY_OF_WEEK) != 1 && 
+                   calendar.get((Integer)Calendar.DAY_OF_WEEK) != 7 ){
+
+            schedule_days.add(  
+                          Integer.toString(calendar.get((Calendar.MONTH))+1) + ":" + 
+                          Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
+                          Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
+                   }
 
           if(start_month == end_month){
             while(calendar.get(Calendar.DATE) != end_day){
@@ -169,7 +174,7 @@
                    calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
                 continue;
               schedule_days.add(  
-                            Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
+                            Integer.toString(calendar.get((Calendar.MONTH))+1) + ":" + 
                             Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
                             Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
             System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
@@ -181,7 +186,7 @@
                    calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
                   continue;
               schedule_days.add(  
-                            Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
+                            Integer.toString(calendar.get((Calendar.MONTH))+1) + ":" + 
                             Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
                             Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
                 System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
@@ -262,8 +267,40 @@
               %>
         <table border="1">
               <%
+              //final query for set review days
+              String reviews = "SELECT DISTINCT r.section_id, r.month, r.day, r.hour, r.day_week FROM Review AS r "+
+              "JOIN (SELECT DISTINCT days_of_week, start_time, end_time, sd.section_id FROM Studentcoursedata AS sd    "+
+              "JOIN Meeting AS m ON sd.section_id=m.section_id    "+
+              "JOIN (SELECT DISTINCT sd.student_id FROM Studentcoursedata AS sd    "+
+              "JOIN Meeting AS m ON m.section_id=sd.section_id    "+
+              "WHERE m.section_id="+request.getParameter("section_id")+") AS enr_stu ON enr_stu.student_id=sd.student_id) AS fucked ON fucked.section_id= r.section_id ";
+              
+              ResultSet review_times = statement.executeQuery(reviews);
+
+              LinkedHashMap<String,String> review_hash = new LinkedHashMap<String,String>();
+
+              while(review_times.next()){
+                review_hash.put(Integer.toString(review_times.getInt("month")) + "/" + Integer.toString(review_times.getInt("day")) + ":"+ review_times.getString("day_week") + 
+                 "." + Integer.toString(review_times.getInt("hour")), "eh");
+              }
+              for(String key : review_hash.keySet()){
+                System.out.println("review key is" +key);
+                if(hour_day_hash.containsKey(key)){
+                  System.out.println("has key");
+                  hour_day_hash.put(key, "n");
+                }
+              }
+
+
           for(String key : hour_day_hash.keySet()){
             if( hour_day_hash.get(key).equals("y")){
+              /*String[] stuff = key.split(":|]");
+              String month = stuff[0];
+              String date  = stuff[1];
+              for(int y=0; y<stuff.length; y++){
+                System.out.println("Matched is=" + stuff[y] +"|");
+              }
+              String day = day_lookup.get(stuff[2]);*/
               %>
               <tr>
                 <td><%=key%></td>

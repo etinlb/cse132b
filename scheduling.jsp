@@ -116,6 +116,7 @@
               <th><input type="submit" value="Get Schedule"></th>
             </form>
           </tr>
+          <tr>
           <%
 					}//close if ( action )  condition 
 
@@ -136,53 +137,80 @@
           ResultSet taken_times = statement.executeQuery(query);
 
            //scheduling java code.
-          Hashtable<Integer,String > day_lookup = new Hashtable<Integer, String>();
-          day_lookup.put(2, "M");
-          day_lookup.put(3, "Tu");
-          day_lookup.put(4, "W");
-          day_lookup.put(5, "Th");
-          day_lookup.put(6, "F");
+          Hashtable<String,String > day_lookup = new Hashtable<String, String>();
+          day_lookup.put("2", "M");
+          day_lookup.put("3", "Tu");
+          day_lookup.put("4", "W");
+          day_lookup.put("5", "Th");
+          day_lookup.put("6", "F");
 
-          ArrayList<Integer> schedule_days = new ArrayList<Integer>();
+          ArrayList<String> schedule_days = new ArrayList<String>();
           Calendar calendar = new GregorianCalendar() {{
               set(Calendar.YEAR, 2014);
               set(Calendar.MONTH, start_month);
               set(Calendar.DATE, start_day);
           }}; 
+          schedule_days.add(  
+                        Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
+                        Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
+                        Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
 
           if(start_month == end_month){
-            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
             while(calendar.get(Calendar.DATE) != end_day){
                    calendar.add(Calendar.DATE, 1);  
               if ( calendar.get((Integer)Calendar.DAY_OF_WEEK) == 1 || 
                    calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
                 continue;
-            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+              schedule_days.add(  
+                            Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
+                            Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
+                            Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
             System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
             }
           }else{
-            schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
             while ( calendar.get(Calendar.MONTH) <= end_month && calendar.get(Calendar.DATE) != end_day) {
                   calendar.add(Calendar.DATE, 1);   
               if ( calendar.get((Integer)Calendar.DAY_OF_WEEK) == 1 || 
                    calendar.get((Integer)Calendar.DAY_OF_WEEK) == 7 ) 
                   continue;
-                schedule_days.add(calendar.get((Integer)Calendar.DAY_OF_WEEK)); 
+              schedule_days.add(  
+                            Integer.toString(calendar.get((Calendar.MONTH))) + ":" + 
+                            Integer.toString(calendar.get((Calendar.DATE))) + "]" + 
+                            Integer.toString(calendar.get(Calendar.DAY_OF_WEEK))); 
                 System.out.println(calendar.get((Integer)Calendar.DAY_OF_WEEK));
              }
           }
           
           //Hashtable<String, String> hour_day_hash = new Hashtable<String, String>();
           LinkedHashMap<String,String> hour_day_hash = new LinkedHashMap<String,String>();
-
+          //index by day of week, array list has the dates
+          LinkedHashMap<String,ArrayList<String>> dates_by_day = new LinkedHashMap<String,ArrayList<String>>();
+          
           System.out.println("sched_days = " + schedule_days.toString());
           
           for(int i=0; i<schedule_days.size(); i++){
-            String day = day_lookup.get(schedule_days.get(i));
-            System.out.println("day = " + day );
+            String[] stuff = schedule_days.get(i).split(":|]");
+            String month = stuff[0];
+            String date  = stuff[1];
+            /*for(int y=0; y<stuff.length; y++){
+              System.out.println("Matched is=" + stuff[y] +"|");
+            }*/
+            String day = day_lookup.get(stuff[2]);
+            System.out.println("day = " + day + "date = "  + date + "month = " + month);
             System.out.println("sched_day = " + schedule_days.get(i));
             for(int x=8; x<=20; x++){
-                  hour_day_hash.put(day + Integer.toString(x), "y");
+                  hour_day_hash.put(month + "/" +date +":" + day + "." + Integer.toString(x), "y");
+            }
+
+            //add date to day hash
+            if(dates_by_day.containsKey(day)){
+              ArrayList<String> tmp = dates_by_day.get(day);
+              tmp.add(month + "/" +date);
+              dates_by_day.put(day, tmp);
+            }else{
+              ArrayList<String> tmp = new ArrayList<String>();
+              tmp.add(month + "/" +date);
+              dates_by_day.put(day, tmp);
             }
           }
 
@@ -190,6 +218,11 @@
             System.out.println(key);
                 System.out.println(hour_day_hash.get(key));
           }
+          for(String key : dates_by_day.keySet()){
+            System.out.println(key);
+            System.out.println(dates_by_day.get(key));
+          }
+
           while(taken_times.next()){
             String days = taken_times.getString("days_of_week");
             //System.out.println(days);
@@ -201,24 +234,34 @@
             }else{
               hour = Character.toString(start_times.charAt(0)) + Character.toString(start_times.charAt(1));
             }
-            System.out.println(hour);
+
+            //System.out.println(hour);
             for(int i=0; i<camelCaseWords.length;i++){
               if(!camelCaseWords[i].equals("")){
                 System.out.println("at index" + i + "=" + camelCaseWords[i]+"|" + " hour = "+ taken_times.getString("start_time"));
-                hour_day_hash.put(camelCaseWords[i] + hour, "n");
+                //loop over dates for this day and mark as not available
+                for(int x =0; x<dates_by_day.get(camelCaseWords[i]).size();x++){
+                  System.out.println("Dates by Day" + dates_by_day.get(camelCaseWords[i]).get(x));
+                  hour_day_hash.put(dates_by_day.get(camelCaseWords[i]).get(x) + ":" + camelCaseWords[i] + "." + hour, "n");
+                }
               }
             }
           }
           for(String key : hour_day_hash.keySet()){
             if( hour_day_hash.get(key).equals("y")){
-              System.out.println(key + hour_day_hash.get(key));
+              %>
+              <tr>
+                <td><%=key + " " + hour_day_hash.get(key)%></td>
+              </tr>
+              <%
+              System.out.println(key + " " + hour_day_hash.get(key));
             }
           }
         }
 
 
       %>
-     
+        </tr>
 			   <h1>Available Time Slots:</h1>
 
 			

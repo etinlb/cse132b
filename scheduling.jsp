@@ -133,6 +133,7 @@
            "WHERE m.section_id="+request.getParameter("section_id")+") AS enr_stu ON enr_stu.student_id=sd.student_id";
 
            System.out.println(query);
+           System.out.println("start_month = "+start_month +"end_month= " +end_month +"start_day = " +start_day +"end_day = "  +end_day );
 
           ResultSet taken_times = statement.executeQuery(query);
 
@@ -239,12 +240,17 @@
             for(int i=0; i<camelCaseWords.length;i++){
               if(!camelCaseWords[i].equals("")){
                 System.out.println("at index" + i + "=" + camelCaseWords[i]+"|" + " hour = "+ taken_times.getString("start_time"));
-                //loop over dates for this day and mark as not available
-                for(int x =0; x<dates_by_day.get(camelCaseWords[i]).size();x++){
-                  System.out.println("Dates by Day" + dates_by_day.get(camelCaseWords[i]).get(x));
-                  hour_day_hash.put(dates_by_day.get(camelCaseWords[i]).get(x) + ":" + camelCaseWords[i] + "." + hour, "n");
+                if(dates_by_day.containsKey(camelCaseWords[i])){
+                  for(int x =0; x<dates_by_day.get(camelCaseWords[i]).size();x++){
+                    System.out.println("Here");
+                    System.out.println("Dates by Day" + dates_by_day.get(camelCaseWords[i]).get(x));
+                    hour_day_hash.put(dates_by_day.get(camelCaseWords[i]).get(x) + ":" + camelCaseWords[i] + "." + hour, "n");
+                  }
                 }
+                //loop over dates for this day and mark as not available
+                System.out.println("not here");
               }
+              System.out.println("l;aksdjfl;ksjd");
             }
           }
           for(String key : hour_day_hash.keySet()){

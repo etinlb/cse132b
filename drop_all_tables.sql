@@ -1,4 +1,5 @@
 drop table Meeting;
+drop table review;
 drop table StudentCourseData;
 drop table INSTRUCTOROF;
 drop table THESISCOM;

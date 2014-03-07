@@ -198,7 +198,7 @@
                   System.out.println("NEEDED " + categories_units.get(key));
                   diff = categories_units.get(key) - completed_units.get(key);
                   display = "Needs " +diff+ " units. ";
-                                  System.out.println("3");
+                  System.out.println("RIGHT HERE");
 
                 }
                 if(categories_gpa.get(key) > completed_gpa.get(key)){
@@ -227,9 +227,10 @@
                     "INNER JOIN GRADE_CONVERSION g on sd.grade = g.letter_grade " +
                     "WHERE sd.section_id=cs.section_id AND " +
                     "sd.student_id=" + request.getParameter("student_id")+" AND sd.grade <> 'WIP' AND sd.grade <> 'IN') AS c ON c.course_id=cc.course_id " +
-                    "WHERE name_of_degree='Database Design' AND c.course_id IS null ";
+                    "WHERE name_of_degree='"+request.getParameter("degree")+"' AND c.course_id IS null ";
             ResultSet not_taken = statement.executeQuery(courses_taken); 
             ArrayList<String> tmp = new ArrayList<String>();
+            System.out.println("Executed the query");
 
              Hashtable<String, ArrayList<String>> cat_classes
                = new Hashtable<String, ArrayList<String>>();
@@ -264,11 +265,16 @@
                                          "GROUP BY course_id) AS min_t " +
                                          "JOIN Quarterperiods as qp ON qp.s_period=min_t.min";
                    ResultSet next_time = statement.executeQuery(next);
-                   next_time.next();
+                   String next_qtr;
+                   if(next_time.next()){
+                      next_qtr = next_time.getString("qtr_yr");
+                   }else{
+                      next_qtr = "Sorry, it's not offered soon, good luck graduating without it!";
+                   }
                 %>
                 <tr>
                 <td><%=cat%></td>
-                <td><%=next_time.getString("qtr_yr")%></td>
+                <td><%=next_qtr%></td>
                 </tr>
                 <%
               }

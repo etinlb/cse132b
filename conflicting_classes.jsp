@@ -85,7 +85,7 @@
             System.out.println("Hrer");
               
             String student = "SELECT * FROM (SELECT mt.section_id as msection_id, start_time as mstart_time, end_time as mend_time,  " +
-                             "days_of_week as mdays_of_week, mandatory as mmandatory, course_id as mcourse_id FROM Class AS cs  " +
+                             "days_of_week as mdays_of_week, mandatory as mmandatory, course_id as mcourse_id, c_title AS mtitle FROM Class AS cs  " +
                              "JOIN Meeting AS mt ON mt.section_id=cs.section_id " +
                              "INNER JOIN Studentcoursedata AS sd ON sd.section_id=mt.section_id " +
                              "WHERE sd.student_id=" +request.getParameter("student_id")+" AND cs.qtr_yr='WI14') AS taken " +
@@ -102,9 +102,13 @@
                   <th>SECTION_ID ENROLLED</th>
                   <th>START_TIME</th>
                   <th>END_TIME</th>
+                  <th>COURSE_ID</th>
+                  <th>COURSE_TITLE</th>
                   <th>SECTION_ID CONFLICTING</th>
                   <th>START_TIME</th>
                   <th>END_TIME</th>
+                  <th>COURSE_ID CONFLICTING</th>
+                  <th>COURSE_TITLE CONFLICTING</th>
                   <th>CONFLICTING DAYS</th>                  
                 </tr>
       <%
@@ -133,9 +137,13 @@
                     <th><%= class_set.getInt("msection_id") %></th>
                     <th><%= class_set.getString("mstart_time") %></th>
                     <th><%= class_set.getString("mend_time") %></th>
+                    <th><%= class_set.getString("mcourse_id") %></th>
+                    <th><%= class_set.getString("mtitle") %></th>
                     <th><%= class_set.getString("section_id") %></th>
                     <th><%= class_set.getInt("start_time") %></th>
                     <th><%= class_set.getInt("end_time") %></th>
+                    <th><%= class_set.getString("course_id") %></th>
+                    <th><%= class_set.getString("c_title") %></th>
                     <th><%= days_conf %></th>
                   </form>
                 </tr>

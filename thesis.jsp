@@ -67,28 +67,6 @@
       %>
 
 
-      <%-- -------- DELETE Code -------- --%>
-      <%
-          // Check if a delete is requested
-          if (action != null && action.equals("delete")) {
-
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // DELETE the student FROM the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM THESISCOM WHERE ID = ?");
-
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("ID")));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-             conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
 
       <%-- -------- SELECT Statement Code -------- --%>
       <%
@@ -147,12 +125,6 @@
               <td>
                 <input value="<%= rs.getString("fac_lname") %>"
                   name="LASTNAME" size="15">
-              </td>
-
-  
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Update">
               </td>
           </tr>
       <%

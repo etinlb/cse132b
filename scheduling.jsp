@@ -122,6 +122,12 @@
 
 				if ( action != null && action.equals("get_it") ) 
 				{
+
+					/**************** MASS CODE START HERE ****************/
+      %>
+			   <h1>Available Time Slots:</h1>
+      <%
+
           final int start_month = Integer.parseInt(request.getParameter("s_month")) - 1;
           final int end_month = Integer.parseInt(request.getParameter("e_month")) - 1;
           final int start_day = Integer.parseInt(request.getParameter("s_day"));
@@ -247,6 +253,9 @@
               }
             }
           }
+              %>
+        <table border="1">
+              <%
           for(String key : hour_day_hash.keySet()){
             if( hour_day_hash.get(key).equals("y")){
               %>
@@ -257,15 +266,12 @@
               System.out.println(key + " " + hour_day_hash.get(key));
             }
           }
+        %>
+				</table>
+        <%
         }
 
 
-      %>
-        </tr>
-			   <h1>Available Time Slots:</h1>
-
-			
-      <%
 
 
 				/****************** END OF MASS CODE ********************/			

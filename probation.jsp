@@ -11,7 +11,7 @@
 
       <%-- Set the scripting language to Java and --%>
       <%-- Import the java.sql package --%>
-      <%@ page language="java" import="java.sql.*" %>
+      <%@ page language="java" import="java.sql.*" import="java.util.Date" import="java.text.SimpleDateFormat" %>
   
       <%-- -------- Open Connection Code -------- --%>
       <%
@@ -53,11 +53,21 @@
             // INSERT the student attributes INTO the Student table.
             PreparedStatement pstmt = conn.prepareStatement(
               "INSERT INTO PROBATIONPERIODS VALUES (?, ?, ?, ?)");
+          
+						String s_date = request.getParameter("S_PERIOD");
+						String e_date = request.getParameter("E_PERIOD");
+	
+						SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+						Date s_period = df.parse(s_date);
+						
+						Date e_period = df.parse(e_date);
+ 						java.sql.Date sql_s = new java.sql.Date(s_period.getTime());
+ 						java.sql.Date sql_e = new java.sql.Date(e_period.getTime());
             
-            pstmt.setInt(
+						pstmt.setInt(
               1, Integer.parseInt(request.getParameter("ID")));
-            pstmt.setString(2, request.getParameter("S_PERIOD"));
-            pstmt.setString(3, request.getParameter("E_PERIOD"));
+            pstmt.setDate(2, sql_s); 
+            pstmt.setDate(3, sql_e);
             pstmt.setString(4, request.getParameter("REASON"));
             int rowCount = pstmt.executeUpdate();
 
@@ -68,29 +78,6 @@
       %>
 
 
-      <%-- -------- DELETE Code -------- --%>
-      <%
-          // Check if a delete is requested
-          if (action != null && action.equals("delete")) {
-
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // DELETE the student FROM the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM PROBATIONPERIODS WHERE ID = ? AND PERIODS = ?");
-
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("ID")));
-            pstmt.setString( 2, request.getParameter("PERIOD"));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-             conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
 
       <%-- -------- SELECT Statement Code -------- --%>
       <%
@@ -159,11 +146,6 @@
                   name="REASON" size="60">
               </td>
 
-  
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Update">
-              </td>
           </tr>
       <%
           }

@@ -56,7 +56,7 @@
 
             pstmt.setString(1, request.getParameter("FIRST"));
             pstmt.setString(2, request.getParameter("LAST"));
-            pstmt.setString(3, request.getParameter("SECTION_ID"));
+            pstmt.setInt(3, Integer.parseInt(request.getParameter("SECTION_ID")));
             int rowCount = pstmt.executeUpdate();
 
             // Commit transaction
@@ -65,31 +65,6 @@
           }
       %>
 
-
-      <%-- -------- DELETE Code -------- --%>
-      <%
-          // Check if a delete is requested
-          if (action != null && action.equals("delete")) {
-
-            // Begin transaction
-            conn.setAutoCommit(false);
-            
-            // Create the prepared statement and use it to
-            // DELETE the student FROM the Student table.
-            PreparedStatement pstmt = conn.prepareStatement(
-              "DELETE FROM Instructorof WHERE fac_fname = ? AND fac_lname = ?");
-
-            pstmt.setInt(
-              1, Integer.parseInt(request.getParameter("FIRST")));
-            pstmt.setInt(
-              2, Integer.parseInt(request.getParameter("LAST")));
-            int rowCount = pstmt.executeUpdate();
-
-            // Commit transaction
-             conn.commit();
-            conn.setAutoCommit(true);
-          }
-      %>
 
       <%-- -------- SELECT Statement Code -------- --%>
       <%
@@ -143,10 +118,6 @@
               <td>
                 <input value="<%= rs.getString("section_id") %>" 
                   name="TITLE" size="15">
-              </td>
-              <%-- Button --%>
-              <td>
-                <input type="submit" value="Update">
               </td>
           </tr>
       <%

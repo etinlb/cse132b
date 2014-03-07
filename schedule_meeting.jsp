@@ -52,11 +52,12 @@
             // Create the prepared statement and use it to
             // INSERT the student attributes INTO the Student table.
             PreparedStatement class_entry_state = conn.prepareStatement(
-              "INSERT INTO MEETING VALUES (?, ?, ?, ?, ?, ?)");
+              "INSERT INTO MEETING VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setString(2, request.getParameter("DAYS_OF_WEEK"));
-            class_entry_state.setString(3, request.getParameter("TIME_RANGE"));
+            class_entry_state.setInt(3, Integer.parseInt(request.getParameter("START_TIME")));
+            class_entry_state.setInt(3, Integer.parseInt(request.getParameter("END_TIME")));
             class_entry_state.setString(4, request.getParameter("MANDATORY"));
             class_entry_state.setString(5, request.getParameter("TYPE"));
             class_entry_state.setString(6, request.getParameter("LOCATION"));
@@ -81,7 +82,8 @@
           <tr>
             <th>SECTION ID</th>
             <th>DAYS OF WEEK</th>
-            <th>TIME RANGE</th>
+            <th>START TIME</th>
+            <th>END TIME</th>
             <th>MANDATORY</th>
             <th>TYPE</th>
             <th>LOCATION</th>
@@ -92,7 +94,8 @@
               <input type="hidden" value="insert" name="action">
               <th><input value="" name="SECTION_ID" size="10"></th>
               <th><input value="" name="DAYS_OF_WEEK" size="10"></th>
-              <th><input value="" name="TIME_RANGE" size="15"></th>
+              <th><input value="" name="START_TIME" size="15"></th>
+              <th><input value="" name="END_TIME" size="15"></th>
               <th><input value="" name="MANDATORY" size="15"></th>
               <th><input value="" name="TYPE" size="15"></th>
               <th><input value="" name="LOCATION" size="15"></th>
@@ -120,7 +123,11 @@
                   name="DAYS_OF_WEEK" size="10">
               </td>
               <td>
-                <input value="<%= rs.getString("time_range") %>"
+                <input value="<%= rs.getString("start_time") %>"
+                  name="TIME_RANGE" size="15">
+              </td>
+              <td>
+                <input value="<%= rs.getString("end_time") %>"
                   name="TIME_RANGE" size="15">
               </td>
               <td>

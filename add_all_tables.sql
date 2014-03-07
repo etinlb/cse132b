@@ -34,7 +34,10 @@ INSERT INTO QUARTERPERIODS VALUES
 ('SP13','2013-03-27','2013-06-13'),
 ('FA13','2013-09-23','2013-12-14'),
 ('WI14','2014-01-02','2014-03-14'),
-('SP14','2014-03-27','2014-06-13');
+('SP14','2014-03-27','2014-06-13'),
+('FA14','2014-08-27','2014-12-13'),
+('WI15','2015-01-27','2015-03-13'),
+('SP15','2015-03-27','2015-06-13');
 
 
 CREATE TABLE OLDCOURSENAME (
@@ -83,8 +86,10 @@ INSERT INTO CLASS VALUES
 (18, 'CSE102',  'YEE BUDDY', 'FA13', 40),
 (19, 'CSE102',  'YEE BUDDY', 'FA13', 40),
 (20, 'CSE100',  'YEE BUDDY', 'FA13', 40),
-(21, 'CSE10',  'OO2 Prgramming', 'SP13', 40),
-(22, 'CSE11',  'OO2 Prgramming', 'SP13', 40);
+(21, 'CSE200',  'OO2 Prgramming', 'FA14', 40),
+(22, 'CSE200',  'OO2 Prgramming', 'SP15', 40),
+(23, 'CSE205',  'OO2 Prgramming', 'FA14', 40),
+(24, 'CSE205',  'OO2 Prgramming', 'SP15', 40);
 
 CREATE TABLE MEETING (
   section_id  INT NOT NULL,
@@ -96,6 +101,17 @@ CREATE TABLE MEETING (
   location    VARCHAR(20) NOT NULL,
   FOREIGN KEY (section_id) REFERENCES CLASS
 );
+
+
+CREATE TABLE REVIEW (
+  section_id INT NOT NULL,
+  month      INT NOT NULL,
+  day        INT NOT NULL,
+  hour       INT NOT NULL,
+  FOREIGN KEY (section_id) REFERENCES CLASS
+)
+-- INSERT INTO REVIEW VALUES
+-- (2, )
 
 INSERT INTO MEETING VALUES
 (1, 'MWF', 900,  1000, 'N', 'LE', 'WARRENT 12'), 
@@ -109,11 +125,11 @@ INSERT INTO MEETING VALUES
 (7, 'MWF', 1400, 1500,  'N', 'LE', 'WARRENT 12'),
 (8, 'MWF', 1400, 1500,  'N', 'LE', 'WARRENT 12'),
 (10, 'MWF', 1600, 1700,  'N', 'LE', 'WARRENT 12'),
-(11, 'MWF', 1600, 1700,  'N', 'LE', 'WARRENT 12'),
+(11, 'WF', 1600, 1700,  'N', 'LE', 'WARRENT 12'),
 (12, 'MWF', 1700, 1800,  'N', 'LE', 'WARRENT 12'),
 (13, 'MWF', 1700, 1800,  'N', 'LE', 'WARRENT 12'),
 (14, 'MWF', 1700, 1800,  'N', 'LE', 'WARRENT 12'),
-(15, 'MWF', 900, 1000,  'N', 'LE', 'WARRENT 12'),
+(15, 'MF', 900, 1000,  'N', 'LE', 'WARRENT 12'),
 (16, 'MWF', 900, 1000,  'N', 'LE', 'WARRENT 12'),
 (17, 'MWF', 900, 1000,  'N', 'LE', 'WARRENT 12'),
 (18, 'MWF', 1600, 1700,  'N', 'LE', 'WARRENT 12'),

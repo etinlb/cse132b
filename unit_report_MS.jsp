@@ -258,9 +258,17 @@
               </tr>
               <%
               for(String cat : cat_classes.get(key)){
+                  String next = "SELECT qtr_yr FROM (SELECT  cs.course_id, MIN(s_period) FROM Class AS cs " +
+                                         "JOIN Quarterperiods AS qp ON cs.qtr_yr=qp.qtr_yr "+
+                                         "WHERE qp.s_period > '2014-01-02' AND cs.course_id='" + cat + "' " +
+                                         "GROUP BY course_id) AS min_t " +
+                                         "JOIN Quarterperiods as qp ON qp.s_period=min_t.min";
+                   ResultSet next_time = statement.executeQuery(next);
+                   next_time.next();
                 %>
                 <tr>
                 <td><%=cat%></td>
+                <td><%=next_time.getString("qtr_yr")%></td>
                 </tr>
                 <%
               }

@@ -112,15 +112,18 @@
             Hashtable<String, Integer> categories_hash
                                        = new Hashtable<String, Integer>();
             System.out.println("Hrer");
+            String total_req = "SELECT total_units FROM Degree WHERE name_of_degree = '" + request.getParameter("degree") +"'";
+            ResultSet total_u = statement.executeQuery(total_req);
+            total_u.next();
+            int total = total_u.getInt("total_units");
 
             String req_units = "SELECT * FROM Degreereq WHERE name_of_degree = '" + request.getParameter("degree") +"'";
 
             ResultSet categories = statement.executeQuery(req_units);
 
-            int total = 0;
             while(categories.next()){
               categories_hash.put(categories.getString("category"), categories.getInt("units_req"));
-              total += categories.getInt("units_req");
+              //total += categories.getInt("units_req");
             }  
             categories_hash.put("Total", total);
             String student_units = "SELECT cc.category, SUM(units) FROM Studentcoursedata AS sd " +

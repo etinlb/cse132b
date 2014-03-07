@@ -109,6 +109,23 @@
                 </tr>
       <%
             while(class_set.next()){
+            String con_days = class_set.getString("days_of_week");
+            System.out.println(con_days);
+            String[] potential_con_days = con_days.split("(?=[A-Z])");
+            //System.out.println(potential_con_days[0]);
+            String days_conf = "";
+            for(int i=0;i<potential_con_days.length;i++){
+              if(!potential_con_days[i].equals("")){
+                if(class_set.getString("mdays_of_week").contains(potential_con_days[i])){
+                  System.out.println(":LKJSDFL:KJS");
+                  days_conf = days_conf.concat(potential_con_days[i]);
+                }
+              }
+            }
+            if(days_conf.equals("")){
+              System.out.println("noep");
+              continue;
+            }
       %>
                 <tr>
                   <form action="class_enrollment.jsp" method="get">
@@ -119,7 +136,7 @@
                     <th><%= class_set.getString("section_id") %></th>
                     <th><%= class_set.getInt("start_time") %></th>
                     <th><%= class_set.getInt("end_time") %></th>
-                    <th><%= class_set.getString("days_of_week") %></th>
+                    <th><%= days_conf %></th>
                   </form>
                 </tr>
           <%

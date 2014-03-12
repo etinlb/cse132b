@@ -136,7 +136,7 @@
             System.out.println("Grade Hrer");
               // 
        		String grades = 
-          " SELECT qtr_yr, SUM(number_grade * units)/SUM(units) as acc, SUM(number_grade * units) as tot_units " +
+          " SELECT qtr_yr, SUM(number_grade * units)/SUM(units) as acc, SUM(number_grade * units) as num_units, SUM(units) as tot_units " +
           " FROM CLASS as c, STUDENTCOURSEDATA s INNER JOIN GRADE_CONVERSION g on s.grade = g.letter_grade" +
           " WHERE s.student_id =" + request.getParameter("student_id") + 
           " AND s.section_id = c.section_id AND s.grade <> 'WIP' AND s.grade <> 'IN'" +
@@ -151,11 +151,11 @@
                 </tr>
       			<%
 						DecimalFormat df = new DecimalFormat("#.##");
-						double overall_gpa = 0; //SUM(acc*tot_units)
-						double overall_units = 0; //SUM(tot_units)
+						int all_units= 0; //SUM(tot_units)
+						double tot_num_units =0; //SUM(num_units)	
            while(grade_set.next()){
-						overall_gpa += grade_set.getDouble("acc") * grade_set.getInt("tot_units");
-						overall_units += grade_set.getInt("tot_units");
+						tot_num_units+= grade_set.getDouble("acc") * grade_set.getInt("tot_units");
+						all_units += grade_set.getInt("tot_units");
        %>
           <tr>
           	<form action="grade_report.jsp" method="get">
@@ -166,7 +166,7 @@
            </tr>
     		<%
             }
-						if (overall_units != 0.0)
+						if (tot_num_units!= 0.0)
 						{ 
             %>
             <table border="1">
@@ -176,7 +176,7 @@
              <tr>
              	 <form action="grade_report.jsp" method="get">
                        <input type="hidden" value="insert" name="action">
-                       <th><%=df.format(overall_gpa/overall_units) %></th>
+                       <th><%=df.format(tot_num_units/all_units) %></th>
                </form>
              </tr>
       			<%

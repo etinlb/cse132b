@@ -16,7 +16,7 @@ GROUP BY i.fac_fname, i.fac_lname, c.qtr_yr, c.course_id;
 
 /*same as above but does not display the quarter*/
 CREATE TABLE CPG AS             
-SELECT c.course_id, fac_fname, i.fac_lname, c.qtr_yr,
+SELECT c.course_id, fac_fname, i.fac_lname, 
 sum(case when grade LIKE 'A%' then 1 else 0 end) Acount,
 sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount,
 sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount,
@@ -25,7 +25,7 @@ FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id
 LEFT JOIN studentcoursedata as s on i.section_id = s.section_id
 LEFT JOIN grade_conversion as g on s.grade = g.letter_grade 
 AND s.grade <> 'WIP' AND s.grade <> 'IN'
-GROUP BY i.fac_fname, i.fac_lname, c.course_id, c.qtr_yr;
+GROUP BY i.fac_fname, i.fac_lname, c.course_id;
 
 
 CREATE TRIGGER CPQG_update 

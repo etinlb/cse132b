@@ -80,7 +80,7 @@
               " sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount, " +
 							" sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount, " +
               " sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount, " +
-              " sum(g.number_grade)/count(*) AS avg_gpa " +
+              " sum(g.number_grade*s.units)/sum(s.units) AS avg_gpa " +
               " FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id " +
               " LEFT JOIN studentcoursedata as s on i.section_id = s.section_id  " +
               " LEFT JOIN grade_conversion as g on s.grade = g.letter_grade " +

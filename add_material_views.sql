@@ -6,7 +6,8 @@ SELECT c.course_id, c.qtr_yr, fac_fname, i.fac_lname,
 sum(case when grade LIKE 'A%' then 1 else 0 end) Acount,
 sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount,
 sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount,
-sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount
+sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount,
+sum(case when grade LIKE 'W' OR 'F' then 1 else 0 end) Other 
 FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id
 LEFT JOIN studentcoursedata as s on i.section_id = s.section_id
 LEFT JOIN grade_conversion as g on s.grade = g.letter_grade 
@@ -20,25 +21,28 @@ SELECT c.course_id, fac_fname, i.fac_lname,
 sum(case when grade LIKE 'A%' then 1 else 0 end) Acount,
 sum(case when grade LIKE 'B%' then 1 else 0 end) Bcount,
 sum(case when grade LIKE 'C%' then 1 else 0 end) Ccount,
-sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount
+sum(case when grade LIKE 'D%' then 1 else 0 end) Dcount,
+sum(case when grade LIKE 'W' OR 'F' then 1 else 0 end) Other 
 FROM Instructorof AS i LEFT JOIN class AS c ON i.section_id = c.section_id
 LEFT JOIN studentcoursedata as s on i.section_id = s.section_id
 LEFT JOIN grade_conversion as g on s.grade = g.letter_grade 
 AND s.grade <> 'WIP' AND s.grade <> 'IN'
 GROUP BY i.fac_fname, i.fac_lname, c.course_id;
-
-
-CREATE TRIGGER CPQG_update 
-AFTER INSERT ON studentcoursedata
-FOR EACH ROW
-WHEN ( new.grade <> 'WIP' AND new.grade <> 'IN' )
-EXECUTE PROCEDURE CPQG_update ();
-
-DROP FUNCTION CPQG_update() CASCADE
-
+/*
+________/\\\\\\\\\__/\\\\\\\\\\\\\_________/\\\___________/\\\\\\\\\\\\_        
+ _____/\\\////////__\/\\\/////////\\\____/\\\\/\\\\______/\\\//////////__       
+  ___/\\\/___________\/\\\_______\/\\\__/\\\//\////\\\___/\\\_____________      
+   __/\\\_____________\/\\\\\\\\\\\\\/__/\\\______\//\\\_\/\\\____/\\\\\\\_     
+    _\/\\\_____________\/\\\/////////___\//\\\______/\\\__\/\\\___\/////\\\_    
+     _\//\\\____________\/\\\_____________\///\\\\/\\\\/___\/\\\_______\/\\\_   
+      __\///\\\__________\/\\\_______________\////\\\//_____\/\\\_______\/\\\_  
+       ____\////\\\\\\\\\_\/\\\__________________\///\\\\\\__\//\\\\\\\\\\\\/__ 
+        _______\/////////__\///_____________________\//////____\////////////____
+*/
 CREATE FUNCTION CPQG_update () RETURNS trigger AS $CPQG_update$
   DECLARE
   c_id course.course_id%TYPE := (select course_id from class where section_id = new.section_id);
+/*THESE DONT WORK IF MULTIPLE PROFS FOR ONE SECTION ID*/
   fname faculty.fac_fname%TYPE := (select fac_fname from instructorof where section_id = new.section_id);
   lname faculty.fac_lname%TYPE := (select fac_lname from instructorof where section_id = new.section_id);
   qtr   class.qtr_yr%TYPE := (select qtr_yr from class where section_id = new.section_id);
@@ -50,7 +54,7 @@ CREATE FUNCTION CPQG_update () RETURNS trigger AS $CPQG_update$
   IF (new.section_id NOT IN (SELECT c.section_id
         FROM CPQG AS s LEFT JOIN class AS c ON s.course_id = c.course_ID 
         WHERE c.section_id = new.section_id)) THEN
-            INSERT INTO CPQG VALUES (c_id, fname, lname, qtr, a, b, c, d);
+            INSERT INTO CPQG VALUES (c_id, qtr, fname, lname,  a, b, c, d);
   ELSIF ( a != 0 ) THEN
     UPDATE CPQG SET Acount = Acount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname AND qtr = qtr_yr;
   ELSIF ( b != 0 ) THEN
@@ -59,24 +63,41 @@ CREATE FUNCTION CPQG_update () RETURNS trigger AS $CPQG_update$
     UPDATE CPQG SET Ccount = Ccount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname AND qtr = qtr_yr;
   ELSIF ( d != 0 ) THEN
     UPDATE CPQG SET Dcount = Dcount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname AND qtr = qtr_yr;
+  ELSE 
+    UPDATE CPQG SET Other = Other + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname AND qtr = qtr_yr;
   END IF;
    RETURN NULL;
   END;
 $CPQG_update$ LANGUAGE plpgsql;
 
 
-
-CREATE TRIGGER CPG_update 
+CREATE TRIGGER CPQG_update 
 AFTER INSERT ON studentcoursedata
 FOR EACH ROW
 WHEN ( new.grade <> 'WIP' AND new.grade <> 'IN' )
-EXECUTE PROCEDURE CPG_update ();
+EXECUTE PROCEDURE CPQG_update ();
 
-DROP FUNCTION CPG_update() CASCADE
+
+
+DROP FUNCTION CPQG_update() CASCADE
+
+
+/*
+________/\\\\\\\\\__/\\\\\\\\\\\\\_______/\\\\\\\\\\\\_        
+ _____/\\\////////__\/\\\/////////\\\___/\\\//////////__       
+  ___/\\\/___________\/\\\_______\/\\\__/\\\_____________      
+   __/\\\_____________\/\\\\\\\\\\\\\/__\/\\\____/\\\\\\\_     
+    _\/\\\_____________\/\\\/////////____\/\\\___\/////\\\_    
+     _\//\\\____________\/\\\_____________\/\\\_______\/\\\_   
+      __\///\\\__________\/\\\_____________\/\\\_______\/\\\_  
+       ____\////\\\\\\\\\_\/\\\_____________\//\\\\\\\\\\\\/__ 
+        _______\/////////__\///_______________\////////////____
+*/
 
 CREATE FUNCTION CPG_update () RETURNS trigger AS $CPG_update$
   DECLARE
   c_id course.course_id%TYPE := (select course_id from class where section_id = new.section_id);
+/*THESE DONT WORK IF MULTIPLE PROFS FOR ONE SECTION ID*/
   fname faculty.fac_fname%TYPE := (select fac_fname from instructorof where section_id = new.section_id);
   lname faculty.fac_lname%TYPE := (select fac_lname from instructorof where section_id = new.section_id);
   a int :=  case when NEW.grade LIKE 'A%' then 1 else 0 end;
@@ -87,7 +108,7 @@ CREATE FUNCTION CPG_update () RETURNS trigger AS $CPG_update$
   IF (new.section_id NOT IN (SELECT c.section_id
         FROM CPG AS s LEFT JOIN class AS c ON s.course_id = c.course_ID 
         WHERE c.section_id = new.section_id)) THEN
-            INSERT INTO CPG VALUES (c_id, fname, lname, a, b, c, d);
+            INSERT INTO CPG VALUES (c_id, new.qtr_yrf,name, lname, a, b, c, d);
   ELSIF ( a != 0 ) THEN
     UPDATE CPG SET Acount = Acount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname;
   ELSIF ( b != 0 ) THEN
@@ -96,7 +117,20 @@ CREATE FUNCTION CPG_update () RETURNS trigger AS $CPG_update$
     UPDATE CPG SET Ccount = Ccount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname;
   ELSIF ( d != 0 ) THEN
     UPDATE CPG SET Dcount = Dcount + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname;
+  ELSE 
+    UPDATE CPQG SET Other = Other + 1 WHERE c_id = course_id AND fname = fac_fname AND lname = fac_lname;
   END IF;
    RETURN NULL;
   END;
 $CPG_update$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER CPG_update 
+AFTER INSERT ON studentcoursedata
+FOR EACH ROW
+WHEN ( new.grade <> 'WIP' AND new.grade <> 'IN' )
+EXECUTE PROCEDURE CPG_update ();
+
+
+DROP FUNCTION CPG_update() CASCADE
+

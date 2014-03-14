@@ -57,10 +57,10 @@
             class_entry_state.setInt(1, Integer.parseInt(request.getParameter("SECTION_ID")));
             class_entry_state.setString(2, request.getParameter("DAYS_OF_WEEK"));
             class_entry_state.setInt(3, Integer.parseInt(request.getParameter("START_TIME")));
-            class_entry_state.setInt(3, Integer.parseInt(request.getParameter("END_TIME")));
-            class_entry_state.setString(4, request.getParameter("MANDATORY"));
-            class_entry_state.setString(5, request.getParameter("TYPE"));
-            class_entry_state.setString(6, request.getParameter("LOCATION"));
+            class_entry_state.setInt(4, Integer.parseInt(request.getParameter("END_TIME")));
+            class_entry_state.setString(5, request.getParameter("MANDATORY"));
+            class_entry_state.setString(6, request.getParameter("TYPE"));
+            class_entry_state.setString(7, request.getParameter("LOCATION"));
             int rowCount = class_entry_state.executeUpdate();
 
             // Commit transaction

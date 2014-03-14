@@ -14,7 +14,7 @@ SELECT INTO enroll_count COUNT(*) FROM Studentcoursedata
 WHERE section_id=NEW.section_id;
 SELECT INTO max_en e_limit FROM Class WHERE section_id = NEW.section_id;
 if enroll_count >= max_en THEN
-RAISE EXCEPTION 'Cannot do that';
+RAISE EXCEPTION 'MAX LIMIT FOR THIS CLASS HIT. You cant enroll in this class as its full';
 END IF;
 return new;
 end;

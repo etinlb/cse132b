@@ -10,9 +10,7 @@ CREATE TABLE COURSE(
 INSERT INTO COURSE VALUES
 ('CSE101', 'LTTR', 'Y', 4, 4, 'CSE'),  
 ('CSE132', 'LTTR', 'N', 4, 4, 'CSE'),  
-('CSE123', 'LTTR', 'N', 1, 8, 'CSE'),
 ('CSE8', 'P/NP', 'N', 1, 8, 'CSE'),   
-('MATH20',  'LTTR', 'N', 4, 4, 'MATH'),
 ('CSE135',  'LTTR', 'N', 4, 4, 'CSE');
 
 CREATE TABLE QUARTERPERIODS (
@@ -54,17 +52,13 @@ CREATE TABLE CLASS (
   FOREIGN KEY  (qtr_yr) REFERENCES QUARTERPERIODS  
 );
 INSERT INTO CLASS VALUES
-(1011, 'CSE101', 'Algorithm', 'WI14', 100),
-(1012, 'CSE101', 'Algorithm', 'WI14', 30),
-(201,  'MATH20', 'Algebra', 'WI14', 10),
-(202,  'MATH20', 'Algebra', 'WI14', 10),
-(1321, 'CSE132', 'Database', 'WI14', 30),
-(1231, 'CSE123',  'Network', 'WI14', 40),
-(1232, 'CSE123',  'Network', 'FA15', 40),
-(81,   'CSE8',  'Java', 'SP13', 15),
-(1322, 'CSE132',  'Database', 'WI13', 80),
-(1351, 'CSE135',  'Database', 'WI13', 80),
-(1323, 'CSE132',  'Database', 'FA13', 80);
+(1011, 'CSE101', 'Algorithm', 'WI14', 2),
+(1012, 'CSE101', 'Algorithm', 'FA13', 2),
+(1013, 'CSE101', 'Algorithm', 'SP13', 2),
+(81,   'CSE8',  'Java', 'SP13', 4),
+(1321, 'CSE132',  'Database', 'WI14', 4),
+(1351, 'CSE135',  'Database', 'WI14', 5),
+(1323, 'CSE132',  'Database', 'SP13', 4);
 
 
 CREATE TABLE MEETING (
@@ -81,11 +75,10 @@ CREATE TABLE MEETING (
 INSERT INTO MEETING VALUES
 (1011, 'MW', 1000,  1050, 'Y', 'LE', 'WLH1101'), 
 (1011, 'F', 1100,  1150, 'N', 'DI', 'WLH2202'), 
-(1012, 'MW', 1200,  1250, 'Y', 'LE', 'WLH2205'), 
-(201, 'M', 1000,  1050, 'Y', 'LE', 'WLH2207'), 
-(202, 'Tu', 1500,  1550, 'Y', 'LE', 'WLH1101'), 
+(1012, 'M', 800,  950, 'Y', 'LE', 'WLH2205'), 
 (1321, 'M', 1200,  1250, 'Y', 'LE', 'WLH1101'), 
-(1231, 'Th', 800,  850, 'Y', 'LE', 'WLH1201'); 
+(1351, 'Th', 800,  850, 'Y', 'LE', 'WLH1201'),
+(81, 'Th', 800,  850, 'Y', 'LE', 'WLH1201'); 
 
 CREATE TABLE STUDENT(
   SSN INT NOT NULL,
@@ -100,7 +93,9 @@ CREATE TABLE STUDENT(
 INSERT INTO STUDENT VALUES
 (1, 1, 'James', '', 'Bond', 'Yes', 'UG'),
 (2, 2, 'Joe', '', 'Gates', 'Yes', 'UG'),
-(3, 3, 'Michael', 'A', 'Lee', 'Yes', 'MS');
+(3, 3, 'Michael', 'A', 'Lee', 'Yes', 'MS'),
+(4, 4, 'Jack', '', 'Johns', 'Yes', 'BS'),
+(5, 5, 'Rose', '', 'Walker', 'Yes', 'MS');
 
 
 CREATE TABLE PROBATIONPERIODS (
@@ -124,16 +119,13 @@ CREATE TABLE STUDENTCOURSEDATA(
   FOREIGN KEY (section_id) REFERENCES CLASS,
   FOREIGN KEY (student_id) REFERENCES STUDENT
 );
+
 INSERT INTO STUDENTCOURSEDATA VALUES
-(81, 1, 'LTRR', 'A',     'comp'2),
-(1012, 1, 'LTRR', 'WIP', 'enrolled'4),
-(1012, 3, 'LTRR', 'WIP', 'enrolled'4),
-(1231, 1, 'LTRR', 'WIP', 'enrolled'2),
-(1322, 1, 'LTRR', 'B',   'comp'4),
-(1322, 3, 'LTRR', 'A',   'comp'4),
-(1323, 2, 'LTRR', 'C',   'comp'4),
-(1351, 1, 'LTRR', 'C',   'comp'4),
-(1351, 3, 'LTRR', 'B+',  'comp'4);
+(81, 1, 'LTRR', 'A',     'comp', 2),
+(1012, 1, 'LTRR', 'WIP', 'enrolled', 4),
+(1012, 3, 'LTRR', 'WIP', 'enrolled', 4),
+(1351, 1, 'LTRR', 'C',   'comp', 4),
+(1351, 3, 'LTRR', 'B+',  'comp', 4);
 
 CREATE TABLE FACULTY(
   fac_fname   VARCHAR(20) NOT NULL,
@@ -152,7 +144,10 @@ INSERT INTO FACULTY VALUES
 ('NAT', NULL, 'TOOLY', 'PROFESSOR', 'COGS' ),
 ('ANDREAS', NULL, 'ADJIOSK', 'PROFESSOR', 'COGS' ),
 ('KEN', NULL, 'FUNCTION', 'PROFESSOR', 'MATH' ),
-('BRIAN', 'CAR', 'MICHAEL', 'PROFESSOR', 'MATH' );
+('BRIAN', 'CAR', 'MICHAEL', 'PROFESSOR', 'MATH' ),
+('Foo', NULL, 'Foo', 'PROFESSOR', 'CSE'),
+('Smith', NULL, 'Smith', 'PROFESSOR', 'CSE'),
+('Miller', NULL, 'Miller', 'PROFESSOR', 'MATH');
 
 CREATE TABLE INSTRUCTOROF (
   fac_fname   VARCHAR(20) NOT NULL,

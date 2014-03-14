@@ -1,8 +1,4 @@
 --Trigger for hitting max enrollment
-CREATE TRIGGER check_max_en
-BEFORE INSERT OR UPDATE ON Studentcoursedata
-FOR EACH ROW EXECUTE PROCEDURE check_max()
-
 
 create or replace function check_max()
 returns trigger AS $$
@@ -20,6 +16,10 @@ return new;
 end;
 $$ LANGUAGE plpgsql;
 
+
+CREATE TRIGGER check_max_en
+BEFORE INSERT OR UPDATE ON Studentcoursedata
+FOR EACH ROW EXECUTE PROCEDURE check_max()
 
 
 
@@ -45,7 +45,7 @@ BEGIN
         SELECT INTO pos * FROM position(compare_days[1] in NEW.days_of_week);
         IF pos<>0 THEN
           RAISE EXCEPTION 'WOA THERE BUDDY! Your are trying to schedule a meeting time for % to % on %, 
-          but that conflicts witht the other meeting times for the % this section, which happens at % and goes until %', 
+          but that conflicts with the other meeting times for the % of this section, which happens at % and goes until %', 
           NEW.start_time, NEW.end_time, NEW.days_of_week, row.type, row.start_time, row.end_time;
         END IF;
           
